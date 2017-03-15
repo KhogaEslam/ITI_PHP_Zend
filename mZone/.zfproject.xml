@@ -18,7 +18,17 @@
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
-      <modelsDirectory/>
+      <modelsDirectory>
+        <modelFile modelName="User"/>
+        <modelFile modelName="Category"/>
+        <modelFile modelName="Discount"/>
+        <modelFile modelName="History"/>
+        <modelFile modelName="Offer"/>
+        <modelFile modelName="Product"/>
+        <modelFile modelName="Rate"/>
+        <modelFile modelName="Review"/>
+        <modelFile modelName="Wishlist"/>
+      </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
       <viewsDirectory>

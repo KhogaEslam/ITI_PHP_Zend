@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2017 at 08:31 PM
+-- Generation Time: Mar 15, 2017 at 09:29 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -30,8 +30,15 @@ CREATE TABLE `category` (
   `cat_id` int(11) NOT NULL,
   `cname` varchar(50) NOT NULL,
   `cdesc` varchar(250) NOT NULL,
-  `parent` int(11) NOT NULL
+  `parent` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`cat_id`, `cname`, `cdesc`, `parent`) VALUES
+(1, 'category', 'parent category', 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +224,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `discount`
 --
