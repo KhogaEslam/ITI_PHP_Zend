@@ -1,0 +1,91 @@
+<?php
+
+class Application_Form_SignUp extends Zend_Form
+{
+
+    public function init()
+    {
+        /* Form Elements & Other Definitions Here ... */
+
+
+    	 $this->setMethod('post');
+
+//  set name 
+    	 $name=new Zend_Form_Element_Text('name');
+        $name->setLabel('Name in En: ')
+        ->setRequired(true)
+        ->addFilter('StringTrim')
+        ->addValidator('StringLength',false, Array(3,20));
+        $name->setAttribs(array('class'=>'form-control','placeholder'=>'example. yourName in engish'));
+
+
+// set name_ar
+
+        $name_ar=new Zend_Form_Element_Text('name_ar');
+        $name_ar->setLabel('Name is Ar: ');
+        $name_ar->setAttribs(array('class'=>'form-control','placeholder'=>'example. yourName in arabic'));
+        $name_ar->setRequired();
+        $name_ar->addValidator('StringLength', false, Array(3,10));
+        $name_ar->addFilter('StringTrim');
+
+
+// username
+        $username=new Zend_Form_Element_Text('username');
+        $username->setLabel('userName: ');
+        $username->setAttribs(array('class'=>'form-control','placeholder'=>'example. username'));
+        $username->setRequired();
+        $username->addValidator('StringLength', false, Array(3,10));
+        $username->addFilter('StringTrim');
+
+
+
+        $email=new Zend_Form_Element_Text('email');
+        $email->setLabel('Email: ');
+        $email->setAttribs(array('class'=>'form-control','placeholder'=>'example@ yahoo.com'));
+        $email->setRequired();
+        $email->addValidator('StringLength', false, Array(10,50));
+        $email->addFilter('StringTrim');
+
+
+
+         $password=new Zend_Form_Element_Text('password');
+        $password->setLabel('password: ');
+        $password->setAttribs(array('class'=>'form-control'));
+
+
+
+
+
+        $submit=new Zend_Form_Element_Submit('submit');
+        $submit->setAttribs(array('class'=>'btn btn-success'));
+
+
+
+
+
+        $reset=new Zend_Form_Element_Reset('reset');
+        $reset->setAttribs(array('class'=>'btn btn-danger'));
+
+
+
+      $this->addElements(array($name,$name_ar,$username,$email,$password,$submit,$reset));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+}
+
