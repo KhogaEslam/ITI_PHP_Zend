@@ -18,21 +18,42 @@ crossorigin="anonymous"></script>
 
 
 <?php
-	$auth = Zend_Auth::getInstance();
-	$identity = $auth->getIdentity();
-	if (!empty($identity)) {
-	
-	?>
-	<a href="<?php echo $this->baseUrl()
-	?>/User/logout"> Logout </a>
-<?php
+    $auth=Zend_Auth::getInstance();
+    $storage=$auth->getStorage();
+    $userdata=$storage->read();
+    $fbsession = new Zend_Session_Namespace('facebook');
+    if(!empty($userdata)|| isset($fbsession->first_name))
+    {
+      if(empty($userdata))
+      {
+        echo 'Welcome'." " . $fbsession->first_name ." ".$fbsession->last_name ." " .$fbsession->gender;
+        echo"<br>";
+        echo' <a href="/user/logout">Logout</a>';
+      }
+      else
+      {
+      // if authenticated and logged in 
+       echo 'Welcome'." " . $userdata->username ;
+       echo"<br>";
+        echo' <a href="/user/logout">Logout</a>';
+      }
 
+  }
 
-   }
+  // else
+  // {// if not logged in 
+  //   echo' <a href="/user/login">Login</a>';
+
+  // }
+
 
 ?>
 
 
+
+
+<!-- <a href="/user/fblogin">Login With Facebook </a>
+     -->    
 
 
 
