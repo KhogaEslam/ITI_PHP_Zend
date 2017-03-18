@@ -13,41 +13,63 @@ class CategoryController extends Zend_Controller_Action
         // action body
     }
 
-    public function listAllAction()
+    public function listAction()
     {
-        // action body
+        $category_model = new Application_Model_Category();
+        $this->view->category = $category_model->listCategory();
     }
 
-    public function createAction()
-    {
-        // action body
-    }
 
-    public function retrieveAction()
+    public function detailsAction()
     {
-        // action body
-    }
-
-    public function updateAction()
-    {
-        // action body
+        $category_model = new Application_Model_Category();
+        $cat_id = $this->_request->getParam("cat_id");
+        $category = $category_model->categoryDetails($cat_id);
+        $this->view->category = $category;
     }
 
     public function deleteAction()
     {
         // action body
+        $category_model = new Application_Model_Category();
+        $cat_id= $this->_request->getParam('cat_id');
+        $category_model->deleteCategory($cat_id);
+        $this->redirect("/category/list");
+    }
+
+    public function addAction()
+    {
+        // action body
+        $form = new Application_Form_Categoryform();
+        $request = $this->getRequest();
+        if($request->isPost()){
+            if($form->isValid($request->getPost())){
+                $category_model = new Application_Model_Category();
+                $category_model-> addNewcategory($request->getParams());
+                $this->redirect('/category/list');
+            }
+        }
+        $this->view->category_form = $form;
     }
 
 
+    public function updateAction()
+    {
+        // action body
+        $form = new Application_Form_Categoryform();
+        $cat_id = $this->_request->getParam('cat_id');
+        $category_model = new Application_Model_Category();
+        $data = $category_model->categoryDetails($cat_id);
+        $form->populate($data);
+        $request = $this->getRequest();
+        if($request->isPost()){
+            if($form->isValid($request->getPost())){
+                $category_model = new Application_Model_Category();
+                $category_model->updateCategory($cat_id,$request->getParams());
+                $this->redirect("/category/list");
+
+            }
+        }
+        $this->view->category_form = $form;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-

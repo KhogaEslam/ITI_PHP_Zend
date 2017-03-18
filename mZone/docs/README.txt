@@ -14,13 +14,13 @@ Setting Up Your VHOST
 The following is a sample VHOST you might want to consider for your project.
 
 <VirtualHost *:80>
-   DocumentRoot "/media/khoga/2E26CC0226CBC953/Users/Eslam/Dropbox/My Data/My_ITI_Data/PHP_Web_Frameworks/Project/mZone/public"
+   DocumentRoot "/var/www/html/mZone/public"
    ServerName mZone.local
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV development
 
-   <Directory "/media/khoga/2E26CC0226CBC953/Users/Eslam/Dropbox/My Data/My_ITI_Data/PHP_Web_Frameworks/Project/mZone/public">
+   <Directory "/var/www/html/mZone/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny

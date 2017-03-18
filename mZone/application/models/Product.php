@@ -2,51 +2,57 @@
 
 class Application_Model_Product extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'product';
+  protected $_name = 'product';
+    public function displayproduct()
+  	{
+  		return $this->fetchAll()-> toArray();
 
-    function listAll()
-    {
-        return $this->fetchAll()->toArray();
-    }
+	  }
 
-    function createData($data)
-    {
-        $row = $this->createRow();
-        $row->name = $data['name'];
-        $row->name_ar = $data['name_ar'];
-        $row->price = $data['price'];
-        $row->rate = $data['rate'];
-        $row->image = $data['image'];
-        $row->pdesc = $data['pdesc'];
-        $row->pdesc_ar = $data['pdesc_ar'];
-        $row->cat_id = $data['cat_id'];
-        $row->shop_user_id = $data['shop_user_id'];
-        $row->save();
-    }
+    public function productdetails($id)
+	{
+		return $this->find($id)->toArray()[0];
 
-    function retrieveData($id)
-    {
-        return $this->find($id)->toArray();
-    }
 
-    function delete($id)
-    {
-        $this->delete("id=$id");
-    }
 
-    function updateData($id, $data)
-    {
-        $new_data['name'] = $data['name'];
-        $new_data['name_ar'] = $data['name_ar'];
-        $new_data['price'] = $data['price'];
-        $new_data['rate'] = $data['rate'];
-        $new_data['image'] = $data['image'];
-        $new_data['pdesc'] = $data['pdesc'];
-        $new_data['pdesc_ar'] = $data['pdesc_ar'];
-        $new_data['shop_user_id'] = $data['shop_user_id'];
+	}
 
-        $this->update($new_data, "id = $id");
-    }
+  // function addNewproduct($productData)
+  // 	{
+  // 		$row = $this->createRow();
+  // 		$row->image = $productData['image'];
+  // 		$row->name= $productData['name'];
+  // 		$row->name_ar= $productData['name_ar'];
+  //     $row->pdesc = $productData['pdesc'];
+  //     $row->pdesc_ar = $productData['pdesc_ar'];
+  //     $row->price = $productData['price'];
+  // 		$row->save();
+  // 	}
 
+    public function deleteproduct($id)
+    	{
+    		$this->delete("id=$id");
+    	}
+
+      function updateproduct($id,$formData,$image){
+
+		  $productData['image']=$image;
+		  $productData['name']=$formData['name'];
+		  $productData['name_ar']=$formData['name_ar'];
+		  $productData['pdesc']=$formData['pdesc'];
+      $productData['pdesc_ar']=$formData['pdesc_ar'];
+      $productData['price']=$formData['price'];
+		  $this->update($productData,"id=".$id);
 }
 
+  public function createproduct($formData,$image){
+    $row=$this->createRow();
+    $row->image=$image;
+    $row->name=$formData['name'];
+    $row->name_ar=$formData['name_ar'];
+    $row->pdesc=$formData['pdesc'];
+    $row->pdesc_ar=$formData['pdesc_ar'];
+    $row->price=$formData['price'];
+  $row ->save();
+  }
+}

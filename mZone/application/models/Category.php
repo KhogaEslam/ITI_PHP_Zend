@@ -3,38 +3,37 @@
 class Application_Model_Category extends Zend_Db_Table_Abstract
 {
     protected $_name = 'category';
-    function listAll()
+
+
+    function listCategory()
     {
         return $this->fetchAll()->toArray();
     }
+    function deleteCategory($cat_id)
+    {
+        $this->delete("cat_id=$cat_id");
+    }
+    function categoryDetails($cat_id)
+    {
+        return $this->find($cat_id)->toArray()[0];
+    }
+    function updateCategory($cat_id,$formData){
+        $categoryData['parent']=$formData['parent'];
+        $categoryData['cname']=$formData['cname'];
+        $categoryData['cdesc']=$formData['cdesc'];
 
-    function createData($data)
+        $this->update($categoryData,"cat_id=".$cat_id);
+    }
+
+    function addNewcategory($categoryData)
     {
         $row = $this->createRow();
-        $row->name = $data['name'];
-        $row->cdesc = $data['cdesc'];
-        $row->parent = $data['parent'];
-
+        $row->parent = $categoryData['parent'];
+        $row->cname= $categoryData['cname'];
+        $row->cdesc = $categoryData['cdesc'];
         $row->save();
     }
 
-    function retrieveData($id)
-    {
-        return $this->find($id)->toArray();
-    }
 
-    function deleteData($id)
-    {
-        $this->delete("id=$id");
-    }
-
-    function updateData($id, $data)
-    {
-        $new_data['name'] = $data['name'];
-        $new_data['cdesc'] = $data['cdesc'];
-        $new_data['parent'] = $data['parent'];
-
-        $this->update($new_data, "id = $id");
-    }
 }
 
