@@ -1,41 +1,58 @@
-
 <head>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.
-min.css" integrity="sha384-
-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-
-theme.min.css" integrity="sha384-
-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <?php echo $this->jQuery (); ?>
 </head>
 
-
-
-
 <?php
-	$auth = Zend_Auth::getInstance();
-	$identity = $auth->getIdentity();
-	if (!empty($identity)) {
-	
-	?>
-	<a href="<?php echo $this->baseUrl()
-	?>/User/logout"> Logout </a>
-<?php
+    $auth=Zend_Auth::getInstance();
+    $storage=$auth->getStorage();
+    $userdata=$storage->read();
+    $fbsession = new Zend_Session_Namespace('facebook');
+    if(!empty($userdata)|| isset($fbsession->first_name))
+    {
+      if(empty($userdata))
+      {
+        echo 'Welcome'." " . $fbsession->first_name ." ".$fbsession->last_name ." " .$fbsession->gender;
+        echo"<br>";
+        echo' <a href="/user/logout">Logout</a>';
+      }
+      else
+      {
+      // if authenticated and logged in 
+       echo 'Welcome'." " . $userdata->username ;
+       echo"<br>";
+        echo' <a href="/user/logout">Logout</a>';
+      }
 
+  }
 
-   }
+  // else
+  // {// if not logged in 
+  //   echo' <a href="/user/login">Login</a>';
+
+  // }
+
 
 ?>
 
 
 
 
+<!-- <a href="/user/fblogin">Login With Facebook </a>
+     -->    
+
+
 
 
 <?php echo $this->layout()->content; ?>
 
+<div class="navbar navbar-inverse navbar-fixed-bottom">
+    <div align="center">
+        <h3 class="navbar-text" style="float:none">Copyright © 2017 - Open Source
+        </h3>
+    </div>
+</div>

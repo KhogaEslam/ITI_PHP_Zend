@@ -11,19 +11,22 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
-        <controllerFile controllerName="User">
-          <actionMethod actionName="index"/>
-        </controllerFile>
         <controllerFile controllerName="Product">
           <actionMethod actionName="index"/>
-        </controllerFile>
-        <controllerFile controllerName="Comment">
-          <actionMethod actionName="index"/>
-        </controllerFile>
-        <controllerFile controllerName="Category">
-          <actionMethod actionName="index"/>
+          <actionMethod actionName="display"/>
+          <actionMethod actionName="details"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="update"/>
+          <actionMethod actionName="create"/>
         </controllerFile>
         <controllerFile controllerName="Wishlist">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="remove"/>
+          <actionMethod actionName="checkunique"/>
+        </controllerFile>
+        <controllerFile controllerName="Category">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -40,6 +43,7 @@
       </layoutsDirectory>
       <modelsDirectory>
         <modelFile modelName="User"/>
+        <modelFile modelName="Category"/>
         <modelFile modelName="Discount"/>
         <modelFile modelName="History"/>
         <modelFile modelName="Offer"/>
@@ -47,7 +51,6 @@
         <modelFile modelName="Rate"/>
         <modelFile modelName="Review"/>
         <modelFile modelName="Wishlist"/>
-        <modelFile modelName="Category"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -59,20 +62,38 @@
           <viewControllerScriptsDirectory forControllerName="Error">
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="User">
-            <viewScriptFile forActionName="index"/>
-          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Product">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Comment">
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="display"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="details"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="update"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Wishlist">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Category">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Wishlist">
-            <viewScriptFile forActionName="index"/>
+            <viewScriptFile forActionName="remove"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Wishlist">
+            <viewScriptFile forActionName="checkunique"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="create"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -120,6 +141,23 @@
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Wishlist">
             <testApplicationActionMethod forActionName="index"/>
+          </testApplicationControllerFile>
+            <testApplicationActionMethod forActionName="index"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Product">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="display"/>
+            <testApplicationActionMethod forActionName="details"/>
+            <testApplicationActionMethod forActionName="add"/>
+            <testApplicationActionMethod forActionName="delete"/>
+            <testApplicationActionMethod forActionName="update"/>
+            <testApplicationActionMethod forActionName="create"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Wishlist">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="add"/>
+            <testApplicationActionMethod forActionName="remove"/>
+            <testApplicationActionMethod forActionName="checkunique"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

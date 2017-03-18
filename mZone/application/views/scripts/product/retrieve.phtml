@@ -1,0 +1,30 @@
+<div class="container">
+    <div >
+        <div class="container">
+            <h1 class="text-center"><?php echo $this->product['name']; ?></h1>
+        </div>
+
+        <div class="container">
+            <?php
+            foreach($this->reviews as $key => $value)
+            {
+                echo "<a href='retrieve/cid/".$value['id']."'> ".$value['comment']." </a><hr>";
+            }
+            ?>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <div >
+            <center>
+                <h1>Add New Comment</h1>
+            </center>
+        </div>
+        <?php
+        echo $this->comment_form;
+        ?>
+    </div>
+</div>
