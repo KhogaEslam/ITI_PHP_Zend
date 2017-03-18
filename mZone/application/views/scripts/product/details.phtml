@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+
+  <img src ="<?php echo $this->baseUrl()."/images/".$this->product['image'];?>" height="100" width="100">
+    </div>
+    <div class="panel-body">
+      <h4>Name:<?php echo $this->product['name']; ?></h4>
+      <h4>Price:<?php echo $this->product['price']; ?></h4>
+      <h4>Rate:<?php echo $this->product['rate']; ?></h4>
+      <h4>Description:<?php echo $this->product['pdesc']; ?></h4>
+      <a href="/wishlist/add">Add</a><br>
+       <a href="/wishlist/remove">Remove</a>
+
+
+  </div>
+</div>
