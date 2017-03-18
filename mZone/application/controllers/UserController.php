@@ -249,7 +249,7 @@ Exit;
 
 
                 $user_model = new Application_Model_User();
-				$user_model->InsertFB($userNode->all());
+				// $user_model->InsertFB($userNode->all());
 
 
 }

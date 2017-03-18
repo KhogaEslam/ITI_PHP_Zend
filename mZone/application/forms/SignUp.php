@@ -44,15 +44,39 @@ class Application_Form_SignUp extends Zend_Form
         $email->setAttribs(array('class'=>'form-control','placeholder'=>'example@ yahoo.com'));
         $email->setRequired();
         $email->addValidator('StringLength', false, Array(10,50));
+        $email->addValidator('EmailAddress',  TRUE  );
         $email->addFilter('StringTrim');
 
 
 
-         $password=new Zend_Form_Element_Text('password');
+
+    
+
+
+
+
+        $password=new Zend_Form_Element_Password('password');
         $password->setLabel('password: ');
-        $password->setAttribs(array('class'=>'form-control'));
+        $password->setAttribs(array('class'=>'form-control','requireAlpha' => 'true','requireNumeric' => 'true','minPasswordLength' => 8));
+        $password->addValidator('StringLength', false, Array(8,50));
+        $v=new Zend_Validate_Alnum();
+        $password->addValidator($v);
+        // $password->addValidator('Alnum');
+        // $password->addValidator('Regex', false, 
+        //              array('/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/'));
+
+        // $v = new Zend_Validate_Alnum();
+        // $password->addValidator($v);
 
 
+        $re_password=new Zend_Form_Element_Password('re_password');
+        $re_password->setLabel('re_password: ');
+        $re_password->setAttribs(array('class'=>'form-control'));
+
+
+
+        $check_equal=new Zend_Validate_Identical("password");
+        $re_password->addValidator($check_equal);
 
 
 
@@ -68,7 +92,7 @@ class Application_Form_SignUp extends Zend_Form
 
 
 
-      $this->addElements(array($name,$name_ar,$username,$email,$password,$submit,$reset));
+      $this->addElements(array($name,$name_ar,$username,$email,$password,$re_password,$submit,$reset));
 
 
 
