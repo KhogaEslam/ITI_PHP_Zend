@@ -18,14 +18,14 @@
       {
         echo 'Welcome'." " . $fbsession->first_name ." ".$fbsession->last_name ." " .$fbsession->gender;
         echo"<br>";
-        echo' <a href="/user/logout">Logout</a>';
+        echo' <a href="/User/logout">Logout</a>';
       }
       else
       {
-      // if authenticated and logged in 
-       echo 'Welcome'." " . $userdata->username ;
-       echo"<br>";
-        echo' <a href="/user/logout">Logout</a>';
+          // if authenticated and logged in
+          echo 'Welcome'." " . $userdata->username ;
+          echo"<br>";
+          echo' <a href="/User/logout">Logout</a>';
       }
 
   }
@@ -35,18 +35,10 @@
   //   echo' <a href="/user/login">Login</a>';
 
   // }
-
-
 ?>
-
-
-
 
 <!-- <a href="/user/fblogin">Login With Facebook </a>
      -->    
-
-
-
 
 <?php echo $this->layout()->content; ?>
 

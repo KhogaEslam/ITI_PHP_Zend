@@ -5,7 +5,7 @@
         <?php
         foreach($this->products as $key => $value)
         {
-            echo "<a class='btn btn-info text-center' href='retrieve/pid/".$value['id']."'> ".$value['name']." </a><hr>";
+            echo "<a class='btn btn-info text-center' href='".$this->baseUrl()."/product/retrieve/pid/".$value['id']."'> ".$value['name']." </a><hr>";
         }
         ?>
 </div>
