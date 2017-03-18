@@ -82,7 +82,17 @@ public function homeAction()
 
 // user login 
 	public function loginAction()
+
+
+
+
+
+	// $auth=Zend_Auth::getInstance();
+ //    $storage=$auth->getStorage();
+ //    $userdata=$storage->read();
 	{
+
+
 		$loginform=new Application_Form_Login();
 		$this->view->login_form = $loginform;
 
@@ -113,11 +123,37 @@ public function homeAction()
     					print_r('authentiacte');
 
 //session steps 
-					    $sessionDataObj=$adapter->getResultRowObject(['email','password','username']);
+					    $sessionDataObj=$adapter->getResultRowObject(['email','password','username','isBlocked','type']);
+					    if($sessionDataObj->isBlocked == 0 &&$sessionDataObj->type == 1 )
+					    {
+					    $auth=Zend_Auth::getInstance();
+					    $storage=$auth->getStorage();
+					    $storage->write($sessionDataObj);
+					    $this->redirect('/user/admin');
+					}
+
+						if($sessionDataObj->isBlocked == 0 &&$sessionDataObj->type == 2 )
+					    {
+					    $auth=Zend_Auth::getInstance();
+					    $storage=$auth->getStorage();
+					    $storage->write($sessionDataObj);
+					    $this->redirect('/user/shopUser');
+					}
+
+					if($sessionDataObj->isBlocked == 0 &&$sessionDataObj->type == 3 )
+					    {
 					    $auth=Zend_Auth::getInstance();
 					    $storage=$auth->getStorage();
 					    $storage->write($sessionDataObj);
 					    $this->redirect('/user/home');
+					}
+
+					else
+					{
+						echo " <br>  You are blocked connect to admin ";
+					}
+
+
 
 					}
 
