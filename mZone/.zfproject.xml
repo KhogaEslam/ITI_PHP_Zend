@@ -66,6 +66,8 @@
         <formFile formName="Comment"/>
         <formFile formName="Product"/>
         <formFile formName="AddOffer"/>
+        <formFile formName="SignUp"/>
+        <formFile formName="Login"/>
         <formFile formName="Discount"/>
       </formsDirectory>
       <layoutsDirectory>
