@@ -1,50 +1,10 @@
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <?php echo $this->jQuery (); ?>
-</head>
-
 <?php
-    $auth=Zend_Auth::getInstance();
-    $storage=$auth->getStorage();
-    $userdata=$storage->read();
-    $fbsession = new Zend_Session_Namespace('facebook');
-    if(!empty($userdata)|| isset($fbsession->first_name))
-    {
-      if(empty($userdata))
-      {
-        echo 'Welcome'." " . $fbsession->first_name ." ".$fbsession->last_name ." " .$fbsession->gender;
-        echo"<br>";
-        echo' <a href="/User/logout">Logout</a>';
-      }
-      else
-      {
-          // if authenticated and logged in
-          echo 'Welcome'." " . $userdata->username ;
-          echo"<br>";
-          echo' <a href="/User/logout">Logout</a>';
-      }
+    require_once "./header.php";
 
-  }
 
-  // else
-  // {// if not logged in 
-  //   echo' <a href="/user/login">Login</a>';
+    echo $this->layout()->content;
 
-  // }
+
+    require_once "./footer.php";
 ?>
 
-<!-- <a href="/user/fblogin">Login With Facebook </a>
-     -->    
-
-<?php echo $this->layout()->content; ?>
-
-<div class="navbar navbar-inverse navbar-fixed-bottom">
-    <div align="center">
-        <h3 class="navbar-text" style="float:none">Copyright © 2017 - Open Source
-        </h3>
-    </div>
-</div>

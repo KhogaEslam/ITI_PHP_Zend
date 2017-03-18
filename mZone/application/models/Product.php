@@ -10,24 +10,21 @@ class Application_Model_Product extends Zend_Db_Table_Abstract
 	  }
 
     public function productdetails($id)
-	{
-		return $this->find($id)->toArray()[0];
+  	{
+  		return $this->find($id)->toArray()[0];
+  	}
 
-
-
-	}
-
-  // function addNewproduct($productData)
-  // 	{
-  // 		$row = $this->createRow();
-  // 		$row->image = $productData['image'];
-  // 		$row->name= $productData['name'];
-  // 		$row->name_ar= $productData['name_ar'];
-  //     $row->pdesc = $productData['pdesc'];
-  //     $row->pdesc_ar = $productData['pdesc_ar'];
-  //     $row->price = $productData['price'];
-  // 		$row->save();
-  // 	}
+   function addNewproduct($productData)
+   	{
+   		$row = $this->createRow();
+   		$row->image = $productData['image'];
+   		$row->name= $productData['name'];
+   		$row->name_ar= $productData['name_ar'];
+       $row->pdesc = $productData['pdesc'];
+       $row->pdesc_ar = $productData['pdesc_ar'];
+       $row->price = $productData['price'];
+   		$row->save();
+   	}
 
     public function deleteproduct($id)
     	{

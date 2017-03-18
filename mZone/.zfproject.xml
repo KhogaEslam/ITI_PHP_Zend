@@ -142,8 +142,6 @@
           <testApplicationControllerFile forControllerName="Wishlist">
             <testApplicationActionMethod forActionName="index"/>
           </testApplicationControllerFile>
-            <testApplicationActionMethod forActionName="index"/>
-          </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Product">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="display"/>

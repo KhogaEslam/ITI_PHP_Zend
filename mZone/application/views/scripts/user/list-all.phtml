@@ -1,4 +1,11 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>User</b> and script/action name <b>listAll</b></p>
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="text-center">Index Page</h1>
+    </div>
+    <?php
+    foreach($this->allUsers as $key => $value)
+    {
+        echo "<a class='btn btn-info text-center' href='".$this->baseUrl()."/product/retrieve/pid/".$value['id']."'> ".$value['name']." </a><hr>";
+    }
+    ?>
 </div>

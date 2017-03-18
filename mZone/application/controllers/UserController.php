@@ -6,17 +6,7 @@ class UserController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
-<<<<<<< HEAD
         $authorization = Zend_Auth::getInstance();
-=======
-        $this->loadSession();
-
-
-
-
-
-       $authorization = Zend_Auth::getInstance();
->>>>>>> 7cc356c64f8c2b2bf65afa4b2373b121e8551f7a
         $fbsession = new Zend_Session_Namespace('facebook');
 
         $this->fpS = new Zend_Session_Namespace('facebook');
@@ -45,18 +35,17 @@ class UserController extends Zend_Controller_Action
     public function listAllAction()
     {
         // action body
+        $user_model = new Application_Model_User();
+        $allUsers = $user_model->listAll();
+        $this->view->allUsers = $allUsers;
     }
-
-
     //---------------------------------------------------
-
     public function homeAction()
     {
         // just for test login
     }
-    //-----------------------------------------
+    //---------------------------------------------------
     // sign up operation
-
     public function addAction()
     {
         $form=new Application_Form_SignUp();
