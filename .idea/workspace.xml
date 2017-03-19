@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b78abeff-168f-4969-8b7a-a08a2ffbae52" name="Default" comment="send email and code generator classes">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mZone/application/controllers/UserController_BACKUP_7227.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mZone/application/controllers/UserController_BASE_7227.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mZone/application/controllers/UserController_LOCAL_7227.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mZone/application/controllers/UserController_REMOTE_7227.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/library/Zend" afterPath="$PROJECT_DIR$/mZone/library/Zend" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/library/ZendX" afterPath="$PROJECT_DIR$/mZone/library/ZendX" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Project.iml" afterPath="$PROJECT_DIR$/.idea/Project.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/.zfproject.xml" afterPath="$PROJECT_DIR$/mZone/.zfproject.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/Bootstrap.php" afterPath="$PROJECT_DIR$/mZone/application/Bootstrap.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/configs/application.ini" afterPath="$PROJECT_DIR$/mZone/application/configs/application.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/controllers/ProductController.php" afterPath="$PROJECT_DIR$/mZone/application/controllers/ProductController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/controllers/UserController.php" afterPath="$PROJECT_DIR$/mZone/application/controllers/UserController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/layouts/scripts/layout.phtml" afterPath="$PROJECT_DIR$/mZone/application/layouts/scripts/layout.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/models/Product.php" afterPath="$PROJECT_DIR$/mZone/application/models/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/views/scripts/product/update.phtml" afterPath="$PROJECT_DIR$/mZone/application/views/scripts/product/update.phtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mZone/application/views/scripts/user/list-all.phtml" afterPath="$PROJECT_DIR$/mZone/application/views/scripts/user/list-all.phtml" />
-    </list>
+    <list default="true" id="b78abeff-168f-4969-8b7a-a08a2ffbae52" name="Default" comment="send email and code generator classes" />
     <list id="8c031046-12a2-44f4-9a66-0defbe1b0e5b" name="Rejected commit: Default" comment="send email and code generator classes" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -794,7 +776,7 @@
       <workItem from="1489830926774" duration="14627000" />
       <workItem from="1489853984021" duration="1551000" />
       <workItem from="1489856573776" duration="1971000" />
-      <workItem from="1489863818372" duration="6010000" />
+      <workItem from="1489863818372" duration="6130000" />
     </task>
     <task id="LOCAL-00001" summary="send email and code generator classes">
       <created>1489613987612</created>
@@ -807,10 +789,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61670000" />
+    <option name="totallyTimeSpent" value="61790000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1368" height="744" extended-state="1" />
+    <frame x="-1" y="25" width="1368" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19486405" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
