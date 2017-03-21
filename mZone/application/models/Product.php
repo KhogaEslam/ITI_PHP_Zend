@@ -15,7 +15,18 @@ class Application_Model_Product extends Zend_Db_Table_Abstract
     {
 
     
-        return $this->find($catId)->toArray()[0];
+        // return $this->find($catId)->toArray()[0];
+      // return $this->fetchAll("cat_id=".$catId.");
+
+
+         $select = $this->select();
+    $select->where('cat_id = ?', $catId);
+    return $this->fetchAll($select)-> toArray();
+
+    // $resultSet = $this->getDbTable()->fetchAll($select);
+
+
+
 
 
     }

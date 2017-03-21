@@ -51,6 +51,7 @@ class UserController extends Zend_Controller_Action
    $all=$category_model->listCategory();
     $this->view->category=$all;
 
+
     $request=$this->getRequest();
         if($request->ispost())
         {
@@ -88,12 +89,17 @@ public function showAction()
 
 //----------------------------------
 
-    public function catProductAction()
+    public function catproductAction()
     {
 
 
         $product_model=new Application_Model_Product();
-        $this->view->catproduct=$product_model->displayallproduct();
+         $cat_id = $this->_request->getParam("cid");
+        
+        
+        $all=$product_model->displayallproduct($cat_id);
+        $this->view->catproduct=$all;
+        
     }
 
 

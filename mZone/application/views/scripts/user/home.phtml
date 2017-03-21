@@ -13,15 +13,16 @@
 				
                 <?php
                 echo "<h3>Category Name:</h3>";
-				echo"<table border='1'><tr>";
+				echo"<table border='2'><tr> <div>";
                 foreach ($this->category as $key => $value) {
                 	# code...
-                
+              
 
-                echo "<td><a href='catProduct/cid/".$value['id']."'>".$value['name']."</a><td></tr>";
-                
+                echo "<td><a href='/user/catproduct/cid/".$value['id']."'><h2>".$value['name']."</h2></a><td>
+</tr>";
+              
                 }
-                echo "</table>";
+                echo "</div></table>";
                 ?>
 
 
