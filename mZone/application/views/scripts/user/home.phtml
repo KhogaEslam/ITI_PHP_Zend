@@ -10,3 +10,36 @@
 ?>
 
 <p>welcome in home page </p>
+				
+                <?php
+                echo "<h3>Category Name:</h3>";
+				echo"<table border='1'><tr>";
+                foreach ($this->category as $key => $value) {
+                	# code...
+                
+
+                echo "<td><a href='catProduct/cid/".$value['id']."'>".$value['name']."</a><td></tr>";
+                
+                }
+                echo "</table>";
+                ?>
+
+
+<?php
+        echo $this->search_form;
+
+if($this->searchproduct != "")
+{
+     foreach($this->searchproduct as $key =>$value)
+      {
+        echo"<div>";
+          echo "product name ".$value['name']." ";
+
+          echo "<a class='btn btn-default btn-lg active' href='http://mzone.com/product/details/pid/".$value['id']."'> Details</a> ";
+echo "<div>";
+       }}
+
+
+        // var_dump($this->searchproduct);
+
+?>      

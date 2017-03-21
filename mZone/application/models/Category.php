@@ -25,13 +25,22 @@ class Application_Model_Category extends Zend_Db_Table_Abstract
         $this->update($categoryData,"cat_id=".$cat_id);
     }
 
-    function addNewcategory($categoryData)
+    function addNewcategory($categoryData,$image)
     {
         $row = $this->createRow();
+        $row->image=$image;
         $row->parent = $categoryData['parent'];
-        $row->cname= $categoryData['cname'];
+        $row->name= $categoryData['name'];
         $row->cdesc = $categoryData['cdesc'];
         $row->save();
+    }
+
+      function getParentCategories(){
+      return $this->fetchAll('parent = 1')->toArray();
+    }
+
+    function getChildCategories($id){
+      return $this->fetchAll($this->select()->where('parent = ?',$id))->toArray();
     }
 
 

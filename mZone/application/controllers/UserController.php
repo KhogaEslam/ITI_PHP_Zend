@@ -30,6 +30,7 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+
     }
 
     public function listAllAction()
@@ -43,7 +44,60 @@ class UserController extends Zend_Controller_Action
     public function homeAction()
     {
         // just for test login
+        $form = new Application_Form_Search();
+        $this->view->search_form=$form;
+
+    $category_model = new Application_Model_Category();
+   $all=$category_model->listCategory();
+    $this->view->category=$all;
+
+    $request=$this->getRequest();
+        if($request->ispost())
+        {
+
+            if($form->isValid($request->getParams()))
+            {
+
+        $product_model=new Application_Model_Product();
+       
+        $search=$product_model->searchByPname($request->getParam('search'));
+        $this->view->searchproduct=$search;
+
+               // echo $request->getParam('search');
+            
+
+    
+        
+            }
+        }
+
+
+
+     
+    
+        
     }
+    //----------------------------
+
+public function showAction()
+
+    {
+
+
+     }
+
+//----------------------------------
+
+    public function catProductAction()
+    {
+
+
+        $product_model=new Application_Model_Product();
+        $this->view->catproduct=$product_model->displayallproduct();
+    }
+
+
+
     //---------------------------------------------------
     // sign up operation
     public function addAction()
@@ -100,7 +154,7 @@ class UserController extends Zend_Controller_Action
                     {
                         print_r('authentiacte');
                         //session steps
-                        $sessionDataObj=$adapter->getResultRowObject(['email','password','username','isBlocked','type']);
+                        $sessionDataObj=$adapter->getResultRowObject(['email','password','username','id','isBlocked','type','name']);
                         if($sessionDataObj->isBlocked == 0 &&$sessionDataObj->type == 1 )
                         {
                             $auth=Zend_Auth::getInstance();
