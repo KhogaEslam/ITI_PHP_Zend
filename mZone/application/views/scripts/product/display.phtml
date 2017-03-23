@@ -1,11 +1,19 @@
 <div class="container">
 	<div class="panel panel-primary">
+		<a class= 'btn btn-default btn-lg active' href='create'>Add new product </a>
+	 	<a class='btn btn-default btn-lg active' href='getTopProducts'>top product</a>
+	 	<a class='btn btn-default btn-lg active' href='statistics'>statistics</a>
+
+
+	 	
 <table class="table table-bordered">
+
 	  <div class="panel-heading">
 	 <?php
 $upload='/images';
 //var_dump($this->product);
 //die;
+
 	foreach ($this->product as $key => $value) {
 		# code...
 echo "<tr>";
@@ -22,10 +30,10 @@ echo "<td>"; ?>
 		"</tr>";
 		echo "<tr>".
 		"<td >" . "Rate:" . $value['rate']. "</td>" .
-		"<td> <a class='btn btn-default btn-lg active' href='details/uid/".$value['id']."'> Details </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='delete/uid/".$value['id']."'> Delete </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='update/uid/".$value['id']."'>update </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='create'>Create </a></td>".
+		"<td> <a class='btn btn-default btn-lg active' href='details/pid/".$value['id']."'> Details </a></td>".
+		"<td > <a class= 'btn btn-default btn-lg active' href='delete/pid/".$value['id']."'> Delete </a></td>".
+		"<td > <a class= 'btn btn-default btn-lg active' href='update/pid/".$value['id']."'>update </a></td>".
+
 		"</tr>";
 }
 ?>

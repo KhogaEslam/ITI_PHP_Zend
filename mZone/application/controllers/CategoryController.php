@@ -23,8 +23,8 @@ class CategoryController extends Zend_Controller_Action
     public function detailsAction()
     {
         $category_model = new Application_Model_Category();
-        $cat_id = $this->_request->getParam("cat_id");
-        $category = $category_model->categoryDetails($cat_id);
+        $id = $this->_request->getParam("id");
+        $category = $category_model->categoryDetails($id);
         $this->view->category = $category;
     }
 
@@ -32,7 +32,7 @@ class CategoryController extends Zend_Controller_Action
     {
         // action body
         $category_model = new Application_Model_Category();
-        $cat_id= $this->_request->getParam('cat_id');
+        $cat_id= $this->_request->getParam('id');
         $category_model->deleteCategory($cat_id);
         $this->redirect("/category/list");
     }
@@ -57,7 +57,7 @@ class CategoryController extends Zend_Controller_Action
     {
         // action body
         $form = new Application_Form_Categoryform();
-        $cat_id = $this->_request->getParam('cat_id');
+        $cat_id = $this->_request->getParam('id');
         $category_model = new Application_Model_Category();
         $data = $category_model->categoryDetails($cat_id);
         $form->populate($data);

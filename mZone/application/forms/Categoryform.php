@@ -7,15 +7,15 @@ class Application_Form_Categoryform extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('POST');
-        $cname = new Zend_Form_Element_Text('cname');
-        $cname->setLabel('Cat Name: ');
-        $cname->setAttribs(Array(
+        $name = new Zend_Form_Element_Text('name');
+        $name->setLabel('Cat Name: ');
+        $name->setAttribs(Array(
             'placeholder'=>'Example: Tech',
             'class'=>'form-control'
 
         ));
-        $cname->setRequired();
-        $cname->addFilter('StringTrim');
+        $name->setRequired();
+        $name->addFilter('StringTrim');
 
 
         $cdesc = new Zend_Form_Element_Text('cdesc');
@@ -29,8 +29,13 @@ class Application_Form_Categoryform extends Zend_Form
         $cdesc->setRequired();
         $cdesc->addFilter('StringTrim');
 
-        $parent = new Zend_Form_Element_Text('parent');
-        $parent->setLabel('Parent: ');
+        $parent = new Zend_Form_Element_Select('parent');
+        $parent->setLabel('Parent Category: ');
+        $modelObj = new Application_Model_Category();
+        $categories = $modelObj->getParentCategories();
+        foreach ($categories as $key => $value) {
+          $parent->addMultiOption($value['id'],$value['name']);
+        }
         $parent->setAttribs(Array(
             'placeholder'=>'Example:this category includes phones and labtops',
             'class'=>'form-control'
@@ -47,7 +52,7 @@ class Application_Form_Categoryform extends Zend_Form
         $reset->setAttribs(Array('class'=>'btn btn-danger'));
 
         $this->addElements(Array(
-            $cname,
+            $name,
             $parent,
             $cdesc,
             $submit,

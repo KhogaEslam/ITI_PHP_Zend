@@ -52,4 +52,34 @@ class Application_Model_Product extends Zend_Db_Table_Abstract
     $row->price=$formData['price'];
   $row ->save();
   }
+
+  public function TopProducts(){
+    $query = "SELECT pcat.id,
+                ( 
+                  Select  product.id from product
+                  left join category on category.id = product.cat_id
+                  where product.id = 
+                  (
+                    select pro_id from history 
+                    left join product as p on p.id = pro_id 
+                    left join category as c on c.id = p.cat_id 
+                    where c.id = pcat.Id 
+                    GROUP by pro_id ,c.id 
+                    order by SUM(quantity) 
+                    DESC LIMIT 1 
+                  ) 
+                )
+                as productID
+            FROM category as pcat";
+
+    $db = Zend_Db_Table::getDefaultAdapter();
+    $stmt = $db->query($query);
+    $data = $stmt->fetchAll();
+    // echo "<pre>";
+    // var_dump($data);
+    // echo "</pre>";
+    // exit;
+    
+    return $data;
+  }
 }

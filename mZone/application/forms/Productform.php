@@ -10,7 +10,7 @@ class Application_Form_Productform extends Zend_Form
         $name = new Zend_Form_Element_Text('name');
     		$name->setLabel('EN Name: ');
     		$name->setAttribs(Array(
-    					'placeholder'=>'Example: Phone',
+
     					'class'=>'form-control'
 
     		));
@@ -21,18 +21,17 @@ class Application_Form_Productform extends Zend_Form
           $name_ar = new Zend_Form_Element_Text('name_ar');
           $name_ar->setLabel('Ar.Name: ');
           $name_ar->setAttribs(Array(
-                'placeholder'=>'Example: talefon',
-                'class'=>'form-control'
 
+                'class'=>'form-control'
           ));
             $name_ar->setRequired();
-          $name_ar->addFilter('StringTrim');
+            $name_ar->addFilter('StringTrim');
 
 
             $pdesc = new Zend_Form_Element_Text('pdesc');
             $pdesc->setLabel('EN.Description: ');
             $pdesc->setAttribs(Array(
-                  'placeholder'=>'Example:best product',
+
                   'class'=>'form-control'
 
             ));
@@ -43,7 +42,7 @@ class Application_Form_Productform extends Zend_Form
               $pdesc_ar= new Zend_Form_Element_Text('pdesc_ar');
               $pdesc_ar->setLabel('Ar.Description: ');
               $pdesc_ar->setAttribs(Array(
-                    'placeholder'=>'Example:telfon gamil',
+
                     'class'=>'form-control'
 
               ));
@@ -70,14 +69,31 @@ class Application_Form_Productform extends Zend_Form
                                     date('YmdHis'))))
                 ->addValidator('NotExists', false, $uploadDir);
 
+                $cat_id = new Zend_Form_Element_Select('cat_id');
+                $cat_id->setLabel('Category: ');
+                $modelObj = new Application_Model_Category();
+                $categories = $modelObj->getParentCategories();
+                $cat_id->addMultiOption(1,"mZone");
+                foreach ($categories as $key => $value) {
+                  $cat_id->addMultiOption($value['id'],"- ".$value['name']);
+                  $child_cats = $modelObj->getChildCategories($value['id']);
+                  foreach ($child_cats as $keyc => $valuec) {
+                    $cat_id->addMultiOption($valuec['id'],"-- ".$valuec['name']);
+                  }
+                }
+                $cat_id->setAttribs(Array(
+                    'placeholder'=>'Example:this category includes phones and labtops',
+                    'class'=>'form-control'
+
+                ));
+                $cat_id->setRequired();
+                $cat_id->addFilter('StringTrim');
+
                 $submit= new Zend_Form_Element_Submit('save');
 			          $submit->setAttribs(Array('class'=>'btn btn-success'));
 
           			$reset= new Zend_Form_Element_Reset('reset');
           			$reset->setAttribs(Array('class'=>'btn btn-danger'));
-
-
-
 
 
                $this->addElements(Array(
@@ -87,7 +103,7 @@ class Application_Form_Productform extends Zend_Form
                  $pdesc,
                  $pdesc_ar,
                  $price,
-
+                 $cat_id,
                  $submit,
                  $reset,
    ));

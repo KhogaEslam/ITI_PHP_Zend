@@ -9,13 +9,13 @@
 foreach($this->category as $key => $value)
 {
     echo "<tr>".
-        "<td>" . $value['cat_id'] . "</td>" .
-        "<td>" . $value['cname'] . "</td>" .
+        "<td>" . $value['id'] . "</td>" .
+        "<td>" . $value['name'] . "</td>" .
         "<td>" . $value['cdesc'] . "</td>" .
-        "<td> <a href='add/cat_id/".$value['cat_id']."'> ADD </a></td>" .
-        "<td> <a href='details/cat_id/".$value['cat_id']."'> Details </a> </td>" .
-        "<td> <a href='delete/cat_id/".$value['cat_id']."'> Delete </a></td>" .
-        "<td> <a href='update/cat_id/".$value['cat_id']."'> Update </a></td>" ."</tr>";
+        "<td> <a href='add'> ADD </a></td>" .
+        "<td> <a href='details/id/".$value['id']."'> Details </a> </td>" .
+        "<td> <a href='delete/id/".$value['id']."'> Delete </a></td>" .
+        "<td> <a href='update/id/".$value['id']."'> Update </a></td>" ."</tr>";
 }
 ?>
 </table>
