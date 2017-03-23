@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2017 at 09:13 AM
+-- Generation Time: Mar 23, 2017 at 07:54 PM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -30,15 +30,18 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `cdesc` varchar(250) NOT NULL,
-  `parent` int(11) NOT NULL DEFAULT '1'
+  `parent` int(11) NOT NULL DEFAULT '1',
+  `image` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `cdesc`, `parent`) VALUES
-(1, 'category', 'parent category', 1);
+INSERT INTO `category` (`id`, `name`, `cdesc`, `parent`, `image`) VALUES
+(1, 'category', 'parent category', 1, ''),
+(2, 'mobi', 'mobile', 1, ''),
+(3, 'sport', 'sport ', 1, '');
 
 -- --------------------------------------------------------
 
@@ -126,8 +129,9 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `name_ar`, `price`, `rate`, `image`, `pdesc`, `pdesc_ar`, `cat_id`, `shop_user_id`) VALUES
-(1, 'p1', 'م1', 50, 0, 'img1.png', 'p1 is p1', 'م1 هو م1', 1, 1),
-(2, 'p2', 'م2', 70, 0, 'img', 'desc2', 'وصف1', 1, 1);
+(1, 'p1', 'م1', 50, 3, 'img1.png', 'p1 is p1', 'م1 هو م1', 1, 1),
+(2, 'p2', 'م2', 70, 2, 'img', 'desc2', 'وصف1', 1, 1),
+(3, 'cd', 'سى دى ', 2, 0, '', 'cd ', 'سى دى ', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -140,6 +144,21 @@ CREATE TABLE `rate` (
   `user_id` int(11) NOT NULL,
   `rate` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `rate`
+--
+
+INSERT INTO `rate` (`pro_id`, `user_id`, `rate`) VALUES
+(1, 1, 1),
+(1, 2, 5),
+(1, 3, 3),
+(1, 4, 4),
+(1, 6, 3),
+(2, 4, 1),
+(2, 6, 1),
+(2, 7, 4),
+(2, 8, 3);
 
 -- --------------------------------------------------------
 
@@ -170,6 +189,30 @@ INSERT INTO `review` (`id`, `user_id`, `product_id`, `comment`, `date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `shoppingcart`
+--
+
+CREATE TABLE `shoppingcart` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(10,0) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shoppingcart`
+--
+
+INSERT INTO `shoppingcart` (`id`, `product_id`, `user_id`, `quantity`, `price`, `time`) VALUES
+(1, 1, 2, 2, '3', '2017-03-22 21:35:25'),
+(2, 2, 1, 2, '2', '2017-03-22 21:35:49'),
+(3, 1, 1, 2, '2', '2017-03-22 21:36:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -190,7 +233,13 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `name_ar`, `username`, `email`, `password`, `type`, `isBlocked`) VALUES
 (1, 'admin', 'أدمن', 'admin', 'admin@mZone.com', '123456', 1, 1),
-(2, 'eslam', 'إسلام', 'eslam', 'khoga.eslam@gmail.com', 'eslam12345', 3, 0);
+(2, 'eslam', 'إسلام', 'eslam', 'khoga.eslam@gmail.com', 'eslam12345', 3, 0),
+(3, 'esraa', 'اسراء', 'sara', 'esraa@yahoo.com', '12345678', 2, 0),
+(4, 'aya', 'ايه', 'yoyo', 'aya@yaho.com', '12345678', 3, 0),
+(5, 'bassant', 'بسنت', 'bose', 'bose@yahoo.com', '12345678', 3, 0),
+(6, 'merna', 'ميرنا', 'mero', 'merna@yahoo.com', '123', 3, 0),
+(7, 'a', 'ا', 'a', 'a@yahoo.com', 'a', 3, 0),
+(8, 'b', 'ب', 'b', 'b@yahoo.com', 'b', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -250,6 +299,14 @@ ALTER TABLE `review`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -271,7 +328,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `discount`
 --
@@ -286,17 +343,22 @@ ALTER TABLE `offer`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

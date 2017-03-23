@@ -26,8 +26,9 @@ class ProductController extends Zend_Controller_Action
         $product_model=new Application_Model_Product();
         $product_id=$this->_request->getParam("pid");
         $product=$product_model->productdetails($product_id);
-        $this->view->product = $product;
-
+        $this->view->product= $product[0];
+        // var_dump($product);
+        // die;
 
     }
 
@@ -145,7 +146,65 @@ class ProductController extends Zend_Controller_Action
         $this->view->product_form = $product_form;
     }
 
-    public function statisticsAction()
+
+    public function avgrateAction()
+    {
+
+    $product_model = new Application_Model_Product();
+    $product_rate=$this->_request->getParam("rate");
+    $product_id=$this->_request->getParam("pid");
+    $user_id=$this->_request->getParam("uid");
+    var_dump($product_rate[0]);
+     var_dump($product_id[0]);
+      var_dump($user_id[0]);
+
+
+     $Rate=new Application_Model_Rate();
+     $Rate->addRate($product_rate,$user_id,$product_id);
+     $db=zend_Db_Table::getDefaultAdapter();
+
+
+
+    $adapter=new Zend_Auth_Adapter_DbTable($db,'rate','pro_id','rate');
+
+        $checkquery = $db->select()
+     ->from("rate", array("num"=>"COUNT(*)"))
+     ->where("pro_id = ?", $product_id);
+
+      $checkrequest = $db->fetchRow($checkquery);
+       echo $checkrequest["num"];
+
+
+        $avgCalc = $db->select()
+        ->from("rate", array("avg"=>"AVG(rate)"))
+        ->where("pro_id = ?", $product_id);
+echo "<br>";
+          $avg_rate = $db->fetchRow($avgCalc);
+          echo $avg_rate["avg"];
+
+           $product_model->updateRate($avg_rate["avg"],$product_id);
+
+die;
+    $this->redirect("/product/display");
+     }
+
+     //--------------------------search-----------------
+      public function searchAction()
+
+
+    {
+
+         
+        // $this->_helper->viewRenderer->setNoRender();
+        // $this->_helper->getHelper('layout')->disableLayout();
+        // $product_name = $this->_request->getParam('name');
+        // $product = (new Application_Model_Product())->searchByPname($product_name);
+        
+        // var_dump(json_encode($product));
+    }
+    //---------------------------------------------
+
+public function statisticsAction()
     {
       $history_model = new Application_Model_History();
 
@@ -221,4 +280,6 @@ class ProductController extends Zend_Controller_Action
           $this->view->topproduct=$product_model->TopProducts();
           
       }  
+}
+
 }

@@ -42,7 +42,7 @@ if(!isset($_SESSION['username'])){
       <link href=  "<?php $this->baseUrl() ?>/css/custom_style.css"  rel="stylesheet">
 
 
-      <?php echo $this->jQuery (); ?>
+      <?php echo $this->jQuery(); ?>
   </head>
 
   <body class="nav-md">
