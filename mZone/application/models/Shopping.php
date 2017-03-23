@@ -7,33 +7,30 @@ class Application_Model_Shopping extends Zend_Db_Table_Abstract
 
 public function addToCart($uid,$pid)
 {
- $check=$this->find($uid,$pid)->toArray();
+ 	$check=$this->find($uid)->toArray();
 
-  if(!empty($check))
+ 		 if(!empty($check))
 	        {
-	          echo "already added before";
-	          //$row->quentity=
+	        	$product_model = new Application_Model_Product();
+	          	$data = $product_model->find($pid)->toArray();
 	        }
 	        else{
-	          //addNewproduct
-	          $row->createRow();
-	          $row->userid=$uid;
-	          $row->productid=$pid;
-	          $row->save();
-	          echo"sucessfully added";
+	          	$row = $this->createRow();
+		          $row->createRow();
+		          $row->userid=$uid;
+		          $row->productid=$pid;
+		          $row->save();
 	          }
 }
 
 
-	public function removeCart($uid,$pid)
+	public function removeFromCart($uid,$pid)
 	{
-    echo $uid;
-    echo $pid;
-    //exit;
+    
 		$this->delete('product_id = '.$pid.' and user_id = '.$uid);
 	}
 
-
+   
 
 
 }
