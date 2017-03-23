@@ -11,6 +11,8 @@ class ProductController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+       // $product_model=new Application_Model_Product();
+        //$product_model->getTopProducts();
     }
 
     public function displayAction()
@@ -26,8 +28,9 @@ class ProductController extends Zend_Controller_Action
         $product_model=new Application_Model_Product();
         $product_id=$this->_request->getParam("pid");
         $product=$product_model->productdetails($product_id);
-        $this->view->product = $product;
-
+        $this->view->product= $product[0];
+        // var_dump($product);
+        // die;
 
     }
 
@@ -162,6 +165,141 @@ class ProductController extends Zend_Controller_Action
         $this->view->products = $products;
     }
 
+
+    public function avgrateAction()
+    {
+
+    $product_model = new Application_Model_Product();
+    $product_rate=$this->_request->getParam("rate");
+    $product_id=$this->_request->getParam("pid");
+    $user_id=$this->_request->getParam("uid");
+    var_dump($product_rate[0]);
+     var_dump($product_id[0]);
+      var_dump($user_id[0]);
+
+
+     $Rate=new Application_Model_Rate();
+     $Rate->addRate($product_rate,$user_id,$product_id);
+     $db=zend_Db_Table::getDefaultAdapter();
+
+
+
+    $adapter=new Zend_Auth_Adapter_DbTable($db,'rate','pro_id','rate');
+
+        $checkquery = $db->select()
+     ->from("rate", array("num"=>"COUNT(*)"))
+     ->where("pro_id = ?", $product_id);
+
+      $checkrequest = $db->fetchRow($checkquery);
+       echo $checkrequest["num"];
+
+
+        $avgCalc = $db->select()
+        ->from("rate", array("avg"=>"AVG(rate)"))
+        ->where("pro_id = ?", $product_id);
+echo "<br>";
+          $avg_rate = $db->fetchRow($avgCalc);
+          echo $avg_rate["avg"];
+
+           $product_model->updateRate($avg_rate["avg"],$product_id);
+
+die;
+    $this->redirect("/product/display");
+     }
+
+     //--------------------------search-----------------
+      public function searchAction()
+
+
+    {
+
+         
+        // $this->_helper->viewRenderer->setNoRender();
+        // $this->_helper->getHelper('layout')->disableLayout();
+        // $product_name = $this->_request->getParam('name');
+        // $product = (new Application_Model_Product())->searchByPname($product_name);
+        
+        // var_dump(json_encode($product));
+    }
+    //---------------------------------------------
+
+public function statisticsAction()
+    {
+      $history_model = new Application_Model_History();
+
+      $this->view->statisticproduct=$history_model->product_statistics();
+    }
+    // public function categorystatisticsAction()
+    // // {
+    // //   $TopProduct_model = new Application_Model_VW_TopSoldItems();
+
+    // //   $this->view->statisticcategory=  $TopProduct_model->category_statistics();
+    // // }
+
+    public function displayforcustomerAction()
+    {
+        // action body
+        $product_model=new Application_Model_Product();
+        $this->view->product=$product_model->displayproduct();
+    }
+
+    public function detailsforcustomerAction()
+    {
+        // action body
+               $user_id=3;
+
+        $product_model=new Application_Model_Product();
+        $product_id=(int)$this->_request->getParam("pid");
+        $product=$product_model->productdetails($product_id);
+        $this->view->product = $product;
+                $wishlist_model = new Application_Model_Wishlist();
+        $check=$wishlist_model->find($user_id,$product_id)->toArray();
+         $this->view->check= $check;
+
+       //$product_id=3;
+     }  
+        public function addtowishlistAction()
+    {
+       $user_id=3;
+    
+       $product_id=(int)$this->_request->getParam("pid");
+       $wishlist_model = new Application_Model_Wishlist();
+        $check=$wishlist_model->find($product_id,$user_id)->toArray();
+         $this->view->check= $check;
+         if(!empty($check))
+        {
+          echo "already added before";
+          
+         }
+         else{
+          //addNewproduct
+           
+            $add=$wishlist_model->add($user_id,$product_id);
+         // echo"sucessfully added";
+      }    
+        
+        $this->redirect('/product/displayforcustomer'); 
+
+
+    }
+
+    public function removeAction()
+    {
+        // action body
+        $product_model=new Application_Model_Product();
+        $product_id=(int)$this->_request->getParam("pid");
+       $user_id=3;
+       $wishlist_model = new Application_Model_Wishlist();
+        $wishlist_model->delete("productid=$product_id");
+        $this->redirect('/product/displayforcustomer');   
+    }
+      public function gettopproductsAction()
+      {
+          $product_model=new Application_Model_Product(); 
+          $this->view->topproduct=$product_model->TopProducts();
+          
+      }  
+}
 
 }
 

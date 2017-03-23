@@ -7,7 +7,7 @@ class Application_Form_Categoryform extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('POST');
-        $name = new Zend_Form_Element_Text('name');
+        $cname = new Zend_Form_Element_Text('name');
         $name->setLabel('Category Name: ');
         $name->setAttribs(Array(
             'placeholder'=>'Example: Tech',
@@ -53,6 +53,20 @@ class Application_Form_Categoryform extends Zend_Form
         ));
         $parent->setRequired();
         $parent->addFilter('StringTrim');
+
+
+
+         $uploadDir = APPLICATION_PATH.'/../public/images';
+                $image = new Zend_Form_Element_File('image');
+                $image
+                ->setRequired(true)
+                ->setLabel('Select the file to upload:')
+                ->setDestination($uploadDir)
+                ->addValidator('Count', false, 1) // ensure only 1 file
+                ->addValidator('Size', false, 2097152) // limit to 2MB
+                ->addValidator('Extension', false, 'jpeg,png,jpg')
+               
+                ->addValidator('NotExists', false, $uploadDir);
 
 
         $submit= new Zend_Form_Element_Submit('save');

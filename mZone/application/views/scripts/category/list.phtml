@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Parent</th>
+        <th colspan="4"><center>Action</center></th>
+    </tr>
+<?php
+foreach($this->category as $key => $value)
+{
+    echo "<tr>".
+        "<td>" . $value['id'] . "</td>" .
+        "<td>" . $value['name'] . "</td>" .
+        "<td>" . $value['cdesc'] . "</td>" .
+        "<td> <a href='add'> ADD </a></td>" .
+        "<td> <a href='details/id/".$value['id']."'> Details </a> </td>" .
+        "<td> <a href='delete/id/".$value['id']."'> Delete </a></td>" .
+        "<td> <a href='update/id/".$value['id']."'> Update </a></td>" ."</tr>";
+}
+?>
+</table>

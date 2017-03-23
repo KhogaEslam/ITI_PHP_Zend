@@ -12,3 +12,37 @@ require_once("./admin/dashboard.php");
 ?>
 
 <p>welcome in home page </p>
+				
+                <?php
+                echo "<h3>Category Name:</h3>";
+				echo"<table border='2'><tr> <div>";
+                foreach ($this->category as $key => $value) {
+                	# code...
+              
+
+                echo "<td><a href='/user/catproduct/cid/".$value['id']."'><h2>".$value['name']."</h2></a><td>
+</tr>";
+              
+                }
+                echo "</div></table>";
+                ?>
+
+
+<?php
+        echo $this->search_form;
+
+if($this->searchproduct != "")
+{
+     foreach($this->searchproduct as $key =>$value)
+      {
+        echo"<div>";
+          echo "product name ".$value['name']." ";
+
+          echo "<a class='btn btn-default btn-lg active' href='http://mzone.com/product/details/pid/".$value['id']."'> Details</a> ";
+echo "<div>";
+       }}
+
+
+        // var_dump($this->searchproduct);
+
+?>      

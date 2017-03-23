@@ -1,0 +1,29 @@
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+
+  <img src ="<?php echo $this->baseUrl()."/images/".$this->product['image'];?>" height="100" width="100">
+  <a class='btn btn-default btn-lg active' href='/wishlist/list'> My wishlist</a>
+    </div>
+    <div class="panel-body">
+      <h4>Name:<?php echo $this->product['name']; ?></h4>
+      <h4>Price:<?php echo $this->product['price']; ?></h4>
+      <h4>Rate:<?php echo $this->product['rate']; ?></h4>
+      <h4>Description:<?php echo $this->product['pdesc']; ?></h4>
+      <?php
+      if(empty($this->check)){?>
+      <!-- <a href="/wishlist/add">Add</a><br> -->
+       <!-- <a href="/wishlist/remove">Remove</a> -->
+       <a class='btn btn-default btn-lg active' href="<?='/product/addtowishlist/pid/'.$this->product['id']?>"> Add to wish list </a>
+       <?php
+       }else{?>
+       <a class='btn btn-default btn-lg active' href="<?='/product/remove/pid/'.$this->product['id']?>"> Remove from wish list </a>
+
+<?php
+}
+?>
+
+  </div>
+</div>
+   

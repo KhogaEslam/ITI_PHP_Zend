@@ -2,9 +2,7 @@
 
 class UserController extends Zend_Controller_Action
 {
-
-    public $fpS = null;
-
+    public $fpS;
     public function init()
     {
         /* Initialize action controller here */
@@ -43,6 +41,7 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+
     }
 
     public function listAllAction()
@@ -56,8 +55,68 @@ class UserController extends Zend_Controller_Action
     public function homeAction()
     {
         // just for test login
+        $form = new Application_Form_Search();
+        $this->view->search_form=$form;
+
+    $category_model = new Application_Model_Category();
+   $all=$category_model->listCategory();
+    $this->view->category=$all;
+
+
+    $request=$this->getRequest();
+        if($request->ispost())
+        {
+
+            if($form->isValid($request->getParams()))
+            {
+
+        $product_model=new Application_Model_Product();
+       
+        $search=$product_model->searchByPname($request->getParam('search'));
+        $this->view->searchproduct=$search;
+
+               // echo $request->getParam('search');
+            
+
+    
+        
+            }
+        }
+
+
+
+     
+    
+        
+    }
+    //----------------------------
+
+public function showAction()
+
+    {
+
+
+     }
+
+//----------------------------------
+
+    public function catproductAction()
+    {
+
+
+        $product_model=new Application_Model_Product();
+         $cat_id = $this->_request->getParam("cid");
+        
+        
+        $all=$product_model->displayallproduct($cat_id);
+        $this->view->catproduct=$all;
+        
     }
 
+
+
+    //---------------------------------------------------
+    // sign up operation
     public function addAction()
     {
         $form=new Application_Form_SignUp();
@@ -82,6 +141,7 @@ class UserController extends Zend_Controller_Action
         }
     }
 
+    // user login
     public function loginAction()
     {
         //$auth=Zend_Auth::getInstance();
@@ -108,6 +168,8 @@ class UserController extends Zend_Controller_Action
         $this->_helper->_layout->setLayout('home');
     }
 
+    //-----------------------------------------------
+
     public function logoutAction()
     {
         $auth=Zend_Auth::getInstance();
@@ -116,6 +178,8 @@ class UserController extends Zend_Controller_Action
         session_destroy();
         return $this->redirect('/user/login');
     }
+
+    //---------------------------------------------
 
     public function fbloginAction()
     {
@@ -130,6 +194,7 @@ class UserController extends Zend_Controller_Action
         $this->view->facebook_url = $loginUrl;
     }
 
+    //--------------------------------------------------------
     public function fbcallbackAction()
     {
         $fb = new Facebook\Facebook([

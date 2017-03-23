@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="panel panel-primary">
+<table class="table table-bordered">
+	  <div class="panel-heading">
+	 <?php
+
+   foreach ($this->statisticcategory as $key => $value) {
+     echo "<tr>".
+
+     "<td >" ."category Name:" .$value['CatName']. "</td>" .
+ 		"<tr>";
+		echo "<tr>".
+ 		"<td >" . "TopProduct:" .$value['TopProductName']. "</td>" .
+ 		"</tr>";
+
+ }
+ ?>
