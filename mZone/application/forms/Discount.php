@@ -9,10 +9,9 @@ class Application_Form_Discount extends Zend_Form
         $this->setMethod('POST');
 
         $user_id = new Zend_Form_Element_Hidden('user_id');
-        $user_id->setValue("1");
 
         $code = new Zend_Form_Element_Hidden('code');
-        //$code->setValue("1");
+
         $startDate = new ZendX_JQuery_Form_Element_DatePicker('startDate');
         $startDate->setJQueryParams(array(
             'dateFormat'=>'yy-mm-dd',
@@ -41,6 +40,7 @@ class Application_Form_Discount extends Zend_Form
         $endDate->setLabel('End date: ');
 
         $percentage = new Zend_Form_Element_Text('percentage');
+        $percentage->setLabel('Discount amount: ');
         $validator1=new Zend_Validate_GreaterThan(0);
         $validator2=new Zend_Validate_LessThan(100);
         $percentage
@@ -50,7 +50,7 @@ class Application_Form_Discount extends Zend_Form
             ->addFilter('StringTrim')
             ->addFilter('StripTags')
             ->addValidator('Digits')
-            ->setAttrib('class', 'small')
+            ->setAttrib('class', 'large')
             ->addValidator('StringLength', false, array(1, 3))
             ->setDecorators(array('ViewHelper', 'errors'));
 

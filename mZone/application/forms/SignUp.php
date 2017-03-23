@@ -9,21 +9,21 @@ class Application_Form_SignUp extends Zend_Form
 
 
     	 $this->setMethod('post');
-
+        $msg = new Zend_Form_Element_Note('msg');
 //  set name 
     	 $name=new Zend_Form_Element_Text('name');
-        $name->setLabel('Name in En: ')
+        $name->setLabel('Name in English: ')
         ->setRequired(true)
         ->addFilter('StringTrim')
         ->addValidator('StringLength',false, Array(3,20));
-        $name->setAttribs(array('class'=>'form-control','placeholder'=>'example. yourName in engish'));
+        $name->setAttribs(array('class'=>'form-control','placeholder'=>'your Name in Engish'));
 
 
 // set name_ar
 
         $name_ar=new Zend_Form_Element_Text('name_ar');
-        $name_ar->setLabel('Name is Ar: ');
-        $name_ar->setAttribs(array('class'=>'form-control','placeholder'=>'example. yourName in arabic'));
+        $name_ar->setLabel('Name in Arabic: ');
+        $name_ar->setAttribs(array('class'=>'form-control','placeholder'=>'your Name in Arabic'));
         $name_ar->setRequired();
         $name_ar->addValidator('StringLength', false, Array(3,10));
         $name_ar->addFilter('StringTrim');
@@ -32,7 +32,7 @@ class Application_Form_SignUp extends Zend_Form
 // username
         $username=new Zend_Form_Element_Text('username');
         $username->setLabel('userName: ');
-        $username->setAttribs(array('class'=>'form-control','placeholder'=>'example. username'));
+        $username->setAttribs(array('class'=>'form-control','placeholder'=>'username'));
         $username->setRequired();
         $username->addValidator('StringLength', false, Array(3,10));
         $username->addFilter('StringTrim');
@@ -41,19 +41,11 @@ class Application_Form_SignUp extends Zend_Form
 
         $email=new Zend_Form_Element_Text('email');
         $email->setLabel('Email: ');
-        $email->setAttribs(array('class'=>'form-control','placeholder'=>'example@ yahoo.com'));
+        $email->setAttribs(array('class'=>'form-control','placeholder'=>'example@mZone.com'));
         $email->setRequired();
         $email->addValidator('StringLength', false, Array(10,50));
         $email->addValidator('EmailAddress',  TRUE  );
         $email->addFilter('StringTrim');
-
-
-
-
-    
-
-
-
 
         $password=new Zend_Form_Element_Password('password');
         $password->setLabel('password: ');
@@ -92,20 +84,7 @@ class Application_Form_SignUp extends Zend_Form
 
 
 
-      $this->addElements(array($name,$name_ar,$username,$email,$password,$re_password,$submit,$reset));
-
-
-
-
-
-
-
-
-
-
-
-
-
+      $this->addElements(array($msg, $name,$name_ar,$username,$email,$password,$re_password,$submit,$reset));
 
 
     }

@@ -11,26 +11,28 @@ class Application_Model_Category extends Zend_Db_Table_Abstract
     }
     function deleteCategory($cat_id)
     {
-        $this->delete("cat_id=$cat_id");
+        $this->delete("id=$cat_id");
     }
     function categoryDetails($cat_id)
     {
         return $this->find($cat_id)->toArray()[0];
     }
-    function updateCategory($cat_id,$formData){
+    function updateCategory($cat_id,$formData, $image){
         $categoryData['parent']=$formData['parent'];
-        $categoryData['cname']=$formData['cname'];
+        $categoryData['name']=$formData['name'];
         $categoryData['cdesc']=$formData['cdesc'];
+        $categoryData['image']=$image;
 
-        $this->update($categoryData,"cat_id=".$cat_id);
+        $this->update($categoryData,"id=".$cat_id);
     }
 
-    function addNewcategory($categoryData)
+    function addNewcategory($categoryData, $image)
     {
         $row = $this->createRow();
         $row->parent = $categoryData['parent'];
-        $row->cname= $categoryData['cname'];
+        $row->name= $categoryData['name'];
         $row->cdesc = $categoryData['cdesc'];
+        $row->image = $image;
         $row->save();
     }
 

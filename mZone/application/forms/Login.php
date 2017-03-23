@@ -7,9 +7,9 @@ class Application_Form_Login extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('post');
-     
+
         $email=new Zend_Form_Element_Text('email');
-		$email->setLabel('Email: ');
+		$email->setLabel('Email/Username: ');
 		$email->setAttribs(array('class'=>'form-control'));
 
 
@@ -29,4 +29,3 @@ class Application_Form_Login extends Zend_Form
 
 
 }
-

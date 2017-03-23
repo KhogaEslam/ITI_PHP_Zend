@@ -13,7 +13,7 @@ class CategoryController extends Zend_Controller_Action
         // action body
     }
 
-    public function listAction()
+    public function listAllAction()
     {
         $category_model = new Application_Model_Category();
         $this->view->category = $category_model->listCategory();
@@ -34,7 +34,7 @@ class CategoryController extends Zend_Controller_Action
         $category_model = new Application_Model_Category();
         $cat_id= $this->_request->getParam('cat_id');
         $category_model->deleteCategory($cat_id);
-        $this->redirect("/category/list");
+        $this->redirect("/category/list-all");
     }
 
     public function addAction()
@@ -45,8 +45,12 @@ class CategoryController extends Zend_Controller_Action
         if($request->isPost()){
             if($form->isValid($request->getPost())){
                 $category_model = new Application_Model_Category();
-                $category_model-> addNewcategory($request->getParams());
-                $this->redirect('/category/list');
+                if ($form->image->receive()) {
+                    $image = $form->image->getFileName(null, false);
+                    $category_model-> addNewcategory($request->getParams(),$image);
+                }
+
+                $this->redirect('/category/list-all');
             }
         }
         $this->view->category_form = $form;
@@ -65,8 +69,12 @@ class CategoryController extends Zend_Controller_Action
         if($request->isPost()){
             if($form->isValid($request->getPost())){
                 $category_model = new Application_Model_Category();
-                $category_model->updateCategory($cat_id,$request->getParams());
-                $this->redirect("/category/list");
+                if ($form->image->receive()) {
+                    $image = $form->image->getFileName(null, false);
+                    $category_model->updateCategory($cat_id,$request->getParams(), $image);
+                }
+
+                $this->redirect("/category/list-all");
 
             }
         }

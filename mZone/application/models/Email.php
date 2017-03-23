@@ -4,8 +4,8 @@ class Application_Model_Email
 {
     public function sendEmail($emailTo,$emailToName,$percentage, $code, $startDate="", $endDate=""){
         /** Must fill Following detail * */
-        $yourGmailAccountUsername = 'mzonenotamazon@gmail.com';
-        $yourGmailAccountPassword = 'OurGreateApp';
+        $yourGmailAccountUsername = Zend_Registry::getInstance()->myresources->EMAIL;
+        $yourGmailAccountPassword = Zend_Registry::getInstance()->myresources->EMAIL_PASSWORD;
         /** Must fill Following detail * */
 
         /** Optional Detail * */

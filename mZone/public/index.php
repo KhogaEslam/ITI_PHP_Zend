@@ -17,6 +17,15 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
+/** Zend_Application */
+require_once 'ZendX/JQuery.php';
+
+/** Facebook API */
+require_once 'Facebook/autoload.php';
+
+/** Google API */
+require_once 'Google/autoload.php';
+
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,

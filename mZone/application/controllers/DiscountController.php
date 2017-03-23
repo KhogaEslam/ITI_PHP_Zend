@@ -38,7 +38,7 @@ class DiscountController extends Zend_Controller_Action
                 $emailObj->sendEmail($user['email'],$user['name'],$data['percentage'],$data['code']);
                 $offer_model = new Application_Model_Discount();
                 $offer_model-> createData($data);
-                $this->redirect('/User/list-All/');
+                $this->redirect('/User/list-All');
             }
         }
     }

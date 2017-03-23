@@ -54,6 +54,21 @@ class Application_Form_Productform extends Zend_Form
                 $price->setLabel('Price:');
                 $price->setRequired();
                 $price->addFilter('StringTrim');
+                $price->setAttribs(Array(
+                    'placeholder'=>'Example: price',
+                    'class'=>'form-control'
+
+                ));
+
+                $cat_id= new Zend_Form_Element_Text('cat_id');
+                $cat_id->setLabel('Category:');
+        $cat_id->setRequired();
+        $cat_id->addFilter('StringTrim');
+        $cat_id->setAttribs(Array(
+                    'placeholder'=>'Example: cat_id',
+                    'class'=>'form-control'
+
+                ));
 
                 $uploadDir = APPLICATION_PATH.'/../public/images';
                 $image = new Zend_Form_Element_File('image');
@@ -63,8 +78,8 @@ class Application_Form_Productform extends Zend_Form
                 ->setDestination($uploadDir)
                 ->addValidator('Count', false, 1) // ensure only 1 file
                 ->addValidator('Size', false, 2097152) // limit to 2MB
-                ->addValidator('Extension', false, 'jpeg,png,jpg')
-                ->addFilter('Rename', implode('_',
+                ->addValidator('Extension', false, array('jpg', 'png', 'gif', 'jpeg',''))
+                ->addFilter('Rename', implode('product_',
                                   array($this->_user_id,
                                     $this->_upload_category,
                                     date('YmdHis'))))
@@ -81,13 +96,13 @@ class Application_Form_Productform extends Zend_Form
 
 
                $this->addElements(Array(
-                 $image,
                  $name,
                  $name_ar,
                  $pdesc,
                  $pdesc_ar,
                  $price,
-
+                   $cat_id,
+                 $image,
                  $submit,
                  $reset,
    ));

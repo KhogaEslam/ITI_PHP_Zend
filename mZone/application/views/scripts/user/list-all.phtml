@@ -1,11 +1,77 @@
+<?php
+    require_once("./admin/dashboard.php");
+?>
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="text-center">Index Page</h1>
-    </div>
-    <?php
-    foreach($this->allUsers as $key => $value)
-    {
-        echo "<a class='btn btn-info text-center' href='".$this->baseUrl()."/product/retrieve/pid/".$value['id']."'> ".$value['name']." </a><hr>";
-    }
-    ?>
+        <h1 class="text-center">Users Page</h1>
+
+
+    <br>
+
+    <table id="datatable" class="table table-striped table-bordered table-hover table-condensed" width=100%>
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Type
+                </th>
+                <th colspan="4">
+                    Options
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->allUsers as $key => $value) : ?>
+                <tr>
+                    <td>
+                        <?=$value['name']?>
+                    </td>
+                    <td>
+                        <?php if($value['type'] == 1): ?>
+                            Admin
+                        <?php elseif($value['type'] == 2): ?>
+                            Shop
+                        <?php else: ?>
+                            Customer
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if($value['type'] == 3): ?>
+                            <a class='btn btn-info text-center' href='<?=$this->baseUrl();?>/discount/new-discount/uid/<?=$value['id'];?>'>Send Discount</a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if($value['type'] == 3): ?>
+                            <a class='btn btn-info text-center' href='<?=$this->baseUrl();?>/user/make-shop-user/uid/<?=$value['id'];?>'>Make Shop User</a>
+                        <?php elseif($value['type'] == 2): ?>
+                            <a class='btn btn-danger text-center' href='<?=$this->baseUrl();?>/user/delete-shop-user/uid/<?=$value['id'];?>'>Delete Shop User</a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if(($value['type'] == 2 || $value['type'] == 3 ) && $value['isBlocked'] == 0): ?>
+                            <a class='btn btn-danger text-center' href='<?=$this->baseUrl();?>/user/block/uid/<?=$value['id'];?>'>Block User</a>
+                        <?php elseif(($value['type'] == 2 || $value['type'] == 3 ) && $value['isBlocked'] == 1): ?>
+                            <a class='btn btn-info text-center' href='<?=$this->baseUrl();?>/user/unblock/uid/<?=$value['id'];?>'>UnBlock User</a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if($value['type'] == 1): ?>
+                            <a class='btn btn-danger text-center' href='<?=$this->baseUrl();?>/user/delete-admin-user/uid/<?=$value['id'];?>'>Delete Admin User</a>
+                        <?php elseif($value['type'] == 2 || $value['type'] == 3 ): ?>
+                            <a class='btn btn-info text-center' href='<?=$this->baseUrl();?>/user/make-admin-user/uid/<?=$value['id'];?>'>Make Admin User</a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+
+
+        </tbody>
+    </table>
+</div>
+<div class="btn-group">
+    <button type="button" class="btn btn-default">
+        <a class="btn btn-primary" href="/user/create"> Add user </a>
+    </button>
 </div>

@@ -8,10 +8,8 @@ class Application_Form_AddOffer extends ZendX_JQuery_Form
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('POST');
 
-        $user_id = new Zend_Form_Element_Hidden('user_id');
-        $user_id->setValue("1");
         $product_id = new Zend_Form_Element_Hidden('product_id');
-        $product_id-> setValue("1");
+        //$product_id-> setValue("1");
 
         $startDate = new ZendX_JQuery_Form_Element_DatePicker('startDate');
         $startDate->setJQueryParams(array(
@@ -41,6 +39,7 @@ class Application_Form_AddOffer extends ZendX_JQuery_Form
         $endDate->setLabel('End date: ');
 
         $percentage = new Zend_Form_Element_Text('percentage');
+        $percentage->setLabel('Offer Value: ');
         $validator1=new Zend_Validate_GreaterThan(0);
         $validator2=new Zend_Validate_LessThan(100);
         $percentage
@@ -50,7 +49,7 @@ class Application_Form_AddOffer extends ZendX_JQuery_Form
             ->addFilter('StringTrim')
             ->addFilter('StripTags')
             ->addValidator('Digits')
-            ->setAttrib('class', 'small')
+            ->setAttrib('class', 'large')
             ->addValidator('StringLength', false, array(1, 3))
             ->setDecorators(array('ViewHelper', 'errors'));
 
@@ -58,7 +57,6 @@ class Application_Form_AddOffer extends ZendX_JQuery_Form
         $submit->setAttribs(array('class'=>'btn btn-success'));
 
         $this->addElements(array(
-            $user_id,
             $product_id,
             $startDate,
             $endDate,

@@ -1,11 +1,66 @@
+<?php
+require_once("./admin/dashboard.php");
+?>
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="text-center">Index Page</h1>
-    </div>
-        <?php
-        foreach($this->products as $key => $value)
-        {
-            echo "<a class='btn btn-info text-center' href='".$this->baseUrl()."/product/retrieve/pid/".$value['id']."'> ".$value['name']." </a><hr>";
-        }
-        ?>
+    <h1 class="text-center">Products</h1>
+    <br>
+
+    <table id="datatable" class="table table-striped table-bordered table-hover table-condensed" width=100%>
+        <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name (en)
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Thumbnail
+            </th>
+            <th colspan="3">
+                <center>
+                    Action
+                </center>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->products as $key => $value) : ?>
+            <tr>
+                <td>
+                    <?=$value['id']?>
+                </td>
+                <td>
+                    <?=$value['name']?>
+                </td>
+                <td>
+                    <?=$value['cat_id']?>
+                </td>
+                <td>
+                    <img src="/images/<?=$value['image'];?>" style="width:80px">
+                </td>
+                <td>
+                    <a class='btn btn-info text-center' href='<?=$this->baseUrl();?>/product/details/pid/<?=$value['id'];?>'>Details</a>
+                </td>
+                <td>
+                    <a class='btn btn-warning text-center' href='<?=$this->baseUrl();?>/product/update/pid/<?=$value['id'];?>'>Update</a>
+                </td>
+                <td>
+                    <a class='btn btn-danger text-center' href='<?=$this->baseUrl();?>/product/delete/pid/<?=$value['id'];?>'>Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+
+
+        </tbody>
+    </table>
+</div>
+<div class="btn-group">
+    <button type="button" class="btn btn-default">
+        <a class="btn btn-primary" href='/product/add/'>Add New Product</a>
+    </button>
 </div>

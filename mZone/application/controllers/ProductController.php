@@ -2,10 +2,12 @@
 <?php
 class ProductController extends Zend_Controller_Action
 {
+
     public function init()
     {
         /* Initialize action controller here */
     }
+
     public function indexAction()
     {
         // action body
@@ -34,22 +36,29 @@ class ProductController extends Zend_Controller_Action
         // action body
         $form = new Application_Form_Productform();
         $request = $this->getRequest();
-        if($request->isPost()){
-        if($form->isValid($request->getPost())){
-        $product_model = new Application_Model_Product();
-        $product_model-> addNewproduct($request->getParams());
-        $this->redirect('/product/display');
+        if($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $product_model = new Application_Model_Product();
+                //$original_filename = $form->image->getFileName(null, false);
+                if ($form->image->receive()) {
+                    //$model->saveUpload($this->_identity, $form->image->getFileName(null, false), $original_filename);
+                    $image = $form->image->getFileName(null, false);
+                    $product_model->addNewproduct($request->getParams(), $image);
+                }
+
+                $this->redirect("/product/shop-products");
+            }
+        }
+        $this->view->product_form = $form;
     }
-    }
-     $this->view->product_form = $form;
-    }
+
     public function deleteAction()
     {
         // action body
-    $product_model = new Application_Model_Product();
-    $product_id=$this->_request->getParam("uid");
-    $product=$product_model->deleteproduct($product_id);
-    $this->redirect("/product/display");
+        $product_model = new Application_Model_Product();
+        $product_id=$this->_request->getParam("uid");
+        $product=$product_model->deleteproduct($product_id);
+        $this->redirect("/product/list-all");
     }
 
     public function updateAction()
@@ -64,13 +73,14 @@ class ProductController extends Zend_Controller_Action
         if($request->isPost()){
           if($form->isValid($request->getPost())){
           $product_model = new Application_Model_Product();
-          $original_filename = $form->image->getFileName(null, false);
+          //$original_filename = $form->image->getFileName(null, false);
           if ($form->image->receive()) {
             //$model->saveUpload($this->_identity, $form->image->getFileName(null, false), $original_filename);
-            $product_model->updateproduct($id,$request->getParams(),$form->image->getFileName(null, false));
+              $image = $form->image->getFileName(null, false);
+            $product_model->updateproduct($id,$request->getParams(),$image);
           }
 
-          $this->redirect("/product/display");
+          $this->redirect("/product/list-all");
 
         }
       }
@@ -91,7 +101,7 @@ class ProductController extends Zend_Controller_Action
                 $product_model->createproduct($request->getParams(),$form->image->getFileName(null, false));
               }
 
-              $this->redirect("/product/display");
+              $this->redirect("/product/list-all");
 
             }
           }
@@ -123,7 +133,7 @@ class ProductController extends Zend_Controller_Action
                 $data['product_id'] = $this->_request->getParam('product_id'); //$form->getValue('product_id'); //current product id
                 $data['comment'] = $form->getValue('comment');
                 $data['date'] = $form->getValue('date'); //current date-time
-                var_dump($data);
+                //var_dump($data);
                 //die;
                 $comment_model = new Application_Model_Review();
                 $comment_model-> createData($data);
@@ -137,9 +147,22 @@ class ProductController extends Zend_Controller_Action
     {
         // action body
         $product_model = new Application_Model_Product();
-        $this->view->products = $product_model->listAll();
+        $this->view->products = $product_model->displayproduct();
 
-        $product_form = new Application_Form_Product();
-        $this->view->product_form = $product_form;
+        //$product_form = new Application_Form_Product();
+        //$this->view->product_form = $product_form;
     }
+
+    public function shopProductsAction()
+    {
+        // action body
+        $sid = $this->_request->getParam('uid');
+        $product_model = new Application_Model_Product();
+        $products = $product_model->shopProducts();
+        $this->view->products = $products;
+    }
+
+
 }
+
+
