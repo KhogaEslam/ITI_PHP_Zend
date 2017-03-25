@@ -1,14 +1,37 @@
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
+<!-- /.box-header -->
+<div class="box-body">
+    <h1 class="text-center">Top Products in each category</h1>
+    <div class="table-responsive">
+        <table class="table no-margin">
+            <thead>
+            <tr>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->topproduct as $key => $value): ?>
+                <tr>
+                    <?php if($value['cate']): ?>
+                        <td><?=$value['cate'][0]['id']?></td>
+                        <td><a href="<?php $this->baseUrl() ?>/category/details/cat_id/<?=$value['cate'][0]['id']?>"><?=$value['cate'][0]['name']?></a></td>
+                    <?php else: ?>
+                        <td>No products yet sold</td>
+                        <td>No products yet sold</td>
+                    <?php endif; ?>
+                    <?php if($value['pro']): ?>
+                        <td><?=$value['pro'][0]['id']?></td>
+                        <td><a href="<?php $this->baseUrl() ?>/product/details/pid/<?=$value['pro'][0]['id']?>"><?=$value['pro'][0]['name']?></a></td>
+                    <?php else: ?>
+                        <td>No products yet sold</td>
+                        <td>No products yet sold</td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-    <div class="panel-body">
-      <?php 
-      	echo "<pre>";
-      	var_dump($this->topproduct); 
-      	echo "</pre>";
-      		?>
-  
-
-  </div>
+    <!-- /.table-responsive -->
 </div>

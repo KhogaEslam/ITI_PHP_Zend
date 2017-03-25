@@ -100,6 +100,16 @@ class Application_Model_User extends Zend_Db_Table_Abstract
         $new_data['type'] = 3;
         $this->update($new_data, "id = $id");
     }
+
+    function getCurrentLoggedInUserID(){
+        $authorization = Zend_Auth::getInstance();
+        $storage=$authorization->getStorage();
+        $userdata=$storage->read();
+
+        return $userdata->id;
+
+    }
+
 }
 
 

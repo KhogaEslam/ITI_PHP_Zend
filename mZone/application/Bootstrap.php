@@ -32,4 +32,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry = Zend_Registry::getInstance();
         $registry->myresources = new Zend_Config( $this->getApplication()->getOption('myresources') );
     }
+
+    protected function _initMyActionHelpers()
+    {
+        $this->bootstrap('frontController');
+
+        $signup = Zend_Controller_Action_HelperBroker::getStaticHelper('Signup');
+        Zend_Controller_Action_HelperBroker::addHelper($signup);
+
+        $login = Zend_Controller_Action_HelperBroker::getStaticHelper('Login');
+        Zend_Controller_Action_HelperBroker::addHelper($login);
+
+        $search = Zend_Controller_Action_HelperBroker::getStaticHelper('Search');
+        Zend_Controller_Action_HelperBroker::addHelper($search);
+    }
 }

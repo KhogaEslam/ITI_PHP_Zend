@@ -35,6 +35,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
 <script src="<?php $this->baseUrl() ?>/js/jquery.easing.min.js"></script>
+
+<!-- single -->
+<link rel="stylesheet" href="<?php $this->baseUrl() ?>/css/flexslider.css" type="text/css" media="screen" />
+<script src="<?php $this->baseUrl() ?>/js/imagezoom.js"></script>
+<script src="<?php $this->baseUrl() ?>/js/jquery.flexslider.js"></script>
+<!-- single -->
+
 <?php
 	if (! $this->jQuery()->isEnabled()) {
 			echo $this->jQuery();

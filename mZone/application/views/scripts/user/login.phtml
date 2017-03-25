@@ -1,10 +1,10 @@
-<a href="#" class="use1" data-toggle="modal" data-target="#myModal4"><span>Login</span></a>
-
-<a class="btn btn-info" href="/user/add">SignUp</a>
-
-<a class="btn btn-primary" href="/user/fblogin">Login With Facebook</a>
-<a class="btn btn-primary" href="/user/gplogin">Login With Google</a>
-
+<?php
+	$this->layout()->setLayout('home');
+	//echo $this->login_form;
+	// echo "<pre>";
+	// var_dump($this->login_form);
+	// echo "</pre>";
+ ?>
 <!-- login -->
 			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
@@ -16,8 +16,8 @@
 							<div class="login-grids">
 								<div class="login">
 									<div class="login-bottom">
-										<h3>Sign up for free</h3>
-										<form>
+										<h3>Sign up</h3>
+										<!-- <form>
 											<div class="sign-up">
 												<h4>Email :</h4>
 												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
@@ -36,18 +36,28 @@
 												<input type="submit" value="REGISTER NOW" >
 											</div>
 
-										</form>
+										</form>-->
+										<div class="sign-up" style="width: 50%">
+											<a class="btn btn-info" href="/user/add">SignUp</a>
+											</div>
+											<div class="sign-up">
+											<a class="btn btn-primary" href="/user/fblogin">Facebook</a>
+											</div>
+											<div class="sign-up">
+											<a class="btn btn-primary" href="/user/gplogin">Google</a>
+										</div>
 									</div>
 									<div class="login-right">
-										<h3>Sign in with your account</h3>
-										<form>
-                      <?php
-                        $this->layout()->setLayout('home');
-                        echo $this->login_form;
-                        // echo "<pre>";
-                        // var_dump($this->login_form);
-                        // echo "</pre>";
-                       ?>
+										<h3>Sign in</h3>
+										<div class="sign-in">
+										<?php
+											echo $this->login_form;
+											// echo "<pre>";
+											// var_dump($this->login_form);
+											// echo "</pre>";
+										 ?>
+										 </div>
+										<!--<form>
 											<div class="sign-in">
 												<h4>Email :</h4>
 												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
@@ -64,10 +74,11 @@
 											<div class="sign-in">
 												<input type="submit" value="SIGNIN" >
 											</div>
-										</form>
+										</form>-->
 									</div>
 									<div class="clearfix"></div>
 								</div>
+
 								<p>By logging in you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
 							</div>
 						</div>

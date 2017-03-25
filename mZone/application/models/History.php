@@ -9,7 +9,7 @@ class Application_Model_History extends Zend_Db_Table_Abstract
     {
       $sql=$this->select()
             ->from(['h'=>'history'],['sum(quantity) as quantity',"sum(h.price) as price"])
-            ->joinInner(array('p'=>'product'),'p.id=h.pro_id',array('name'))
+            ->joinInner(array('p'=>'product'),'p.id=h.pro_id',array('id','name','image','pdesc'))
             ->group('pro_id')
             ->setIntegrityCheck(false);
           //  echo $sql;

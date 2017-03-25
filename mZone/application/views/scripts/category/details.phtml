@@ -1,5 +1,10 @@
 <?php
-require_once("./admin/dashboard.php");
+/*
+ *
+ * used in Admin Dashboard
+ *
+*/
+    require_once("./admin/dashboard.php");
 ?>
 <div class="container">
     <div class="panel panel-primary">
@@ -9,12 +14,15 @@ require_once("./admin/dashboard.php");
         <div class="panel-body">
             <table class="table table-bordered">
                 <?php
-                echo "<h3>Category Name:</h3>";
-                echo  $this->category['name'];
-                echo "<h3>Description:</h3>";
-                echo $this->category['cdesc'];
+                    echo "<h3>Category Name:</h3>";
+                    echo  $this->category['name'];
+                    echo "<h3>Description:</h3>";
+                    echo $this->category['cdesc'];
                 ?>
             </table>
+        </div>
+        <div class="panel-body">
+            <img src="<?php echo ($this->baseUrl()."/images/".$this->category['image']);?>" width="300px">
         </div>
     </div>
 </div>

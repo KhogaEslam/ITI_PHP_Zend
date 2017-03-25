@@ -1,20 +1,38 @@
-<div class="container">
+<h1 class="text-center">Total Statistics Page</h1>
 	<div class="panel panel-primary">
-<table class="table table-bordered">
-	  <div class="panel-heading">
-	 <?php
+          <!-- /.box-header -->
+          <div class="box-body">
+              <ul class="products-list product-list-in-box">
+                  <?php $total = 0 ?>
+                  <?php foreach ($this->statisticproduct as $key => $value): ?>
+                      <?php $total += $value['quantity']*$value['price']?>
+                      <li class="item">
+                          <div class="product-img">
+                              <img src="<?php $this->baseUrl() ?>/images/<?=$value['image']?>" alt="<?=$value['name']?>">
+                          </div>
+                          <div class="product-info">
+                              <a href="<?php $this->baseUrl() ?>/product/details/pid/<?=$value['id']?>" class="product-title"><?=$value['name']?>
 
-   foreach ($this->statisticproduct as $key => $value) {
-     echo "<tr>".
+                                  <?php if($value['price']<50): ?>
+                                      <span class="label label-danger pull-right">$<?=$value['quantity']*$value['price']?></span>
+                                  <?php elseif($value['price']<100): ?>
+                                      <span class="label label-warning pull-right">$<?=$value['quantity']*$value['price']?></span>
+                                  <?php elseif($value['price']<500): ?>
+                                      <span class="label label-info pull-right">$<?=$value['quantity']*$value['price']?></span>
+                                  <?php else: ?>
+                                      <span class="label label-success pull-right">$<?=$value['quantity']*$value['price']?></span>
+                                  <?php endif; ?>
 
-     "<td >" ."Name:" .$value['name']. "</td>" .
- 		"<tr>";
-		 echo "<tr>".
- 		"<td >" . "MONEY Gained:" .$value['price']. "</td>" .
- 		 "</tr>";
- 		 echo "<tr>".
- 		"<td >" . "Quantity:" . $value['quantity']. "</td>" .
+                              </a>
+                              <span class="product-description">
+                                <?=$value['pdesc']?>
+                        </span>
+                          </div>
+                      </li>
 
- 		"</tr>";
- }
- ?>
+                  <?php endforeach; ?>
+
+              </ul>
+          </div>
+          <!-- /.box-body -->
+    </div>

@@ -14,13 +14,14 @@
         <controllerFile controllerName="Product">
           <actionMethod actionName="index"/>
           <actionMethod actionName="display"/>
- 	  <actionMethod actionName="statistics"/>
+          <actionMethod actionName="statistics"/>
           <actionMethod actionName="details"/>
           <actionMethod actionName="add"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="update"/>
           <actionMethod actionName="create"/>
           <actionMethod actionName="shopProducts"/>
+          <actionMethod actionName="gettopproducts"/>
         </controllerFile>
         <controllerFile controllerName="Wishlist">
           <actionMethod actionName="index"/>
@@ -36,16 +37,17 @@
           <actionMethod actionName="authUser"/>
           <actionMethod actionName="gpcallback"/>
           <actionMethod actionName="gplogin"/>
+          <actionMethod actionName="authoriseuser"/>
         </controllerFile>
         <controllerFile controllerName="Dashboard">
           <actionMethod actionName="index"/>
         </controllerFile>
-      </controllersDirectory>
-      <controllerFile controllerName="Shopping">
+        <controllerFile controllerName="Shopping">
           <actionMethod actionName="index"/>
           <actionMethod actionName="add"/>
           <actionMethod actionName="remove"/>
         </controllerFile>
+      </controllersDirectory>
       <formsDirectory>
         <formFile formName="SignUp"/>
         <formFile formName="Login"/>
@@ -55,6 +57,7 @@
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>
+          <layoutScriptFile layoutName="home"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
       <modelsDirectory>
@@ -69,6 +72,7 @@
         <modelFile modelName="Wishlist"/>
         <modelFile modelName="Shopping"/>
         <modelFile modelName="CurrentUser"/>
+        <modelFile modelName="AuthorizationModel"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -142,6 +146,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Shopping">
             <viewScriptFile forActionName="remove"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Product">
+            <viewScriptFile forActionName="gettopproducts"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="authoriseuser"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -30,7 +30,7 @@ class OfferController extends Zend_Controller_Action
                 $data['percentage'] = $form->getValue('percentage');
                 $offer_model = new Application_Model_Offer();
                 $offer_model-> createData($data);
-                $this->redirect('/Product/list-All/');
+                $this->redirect('/product/shop-products');
             }
         }
     }

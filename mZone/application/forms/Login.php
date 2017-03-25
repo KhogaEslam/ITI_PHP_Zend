@@ -3,14 +3,15 @@
 class Application_Form_Login extends Zend_Form
 {
 
+    public $processed = false;
     public function init()
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('post');
 
         $email=new Zend_Form_Element_Text('email');
-		$email->setLabel('Email/Username: ');
-		$email->setAttribs(array('class'=>'form-control'));
+		      $email->setLabel('Email/Username: ');
+		        $email->setAttribs(array('class'=>'form-control'));
 
 
         $password=new Zend_Form_Element_Password('password');

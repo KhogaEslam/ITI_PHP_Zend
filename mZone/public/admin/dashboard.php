@@ -2,6 +2,15 @@
 $auth=Zend_Auth::getInstance();
 $storage=$auth->getStorage();
 $userdata=$storage->read();
+/* Initialize action controller here */
+/* Initialize action controller here */
+$authorization = Zend_Auth::getInstance();
+$storage=$authorization->getStorage();
+
+if (!$authorization->hasIdentity() || $userdata->type ==3)
+{
+    header("Location:/");
+}
 ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -303,12 +312,12 @@ $userdata=$storage->read();
           </a>
           <ul class="treeview-menu">
             <?php if($userdata->type == 1): ?>
-                  <li class="active"><a href="<?php $this->baseUrl() ?>/user/list-All"><i class="fa fa-circle-o"></i> Users </a></li>
+                <li class="active"><a href="<?php $this->baseUrl() ?>/dashboard"><i class="fa fa-circle-o"></i> History </a></li>
+                  <li><a href="<?php $this->baseUrl() ?>/user/list-All"><i class="fa fa-circle-o"></i> Users </a></li>
                   <li><a href="<?php $this->baseUrl() ?>/category/list-all"><i class="fa fa-circle-o"></i> Categories </a></li>
                   <li><a href="<?php $this->baseUrl() ?>/product/list-all"><i class="fa fa-circle-o"></i> Products </a></li>
-                  <li><a href="<?php $this->baseUrl() ?>/history"><i class="fa fa-circle-o"></i> History </a></li>
             <?php elseif($userdata->type == 2): ?>
-              <li class="active"><a href="<?php $this->baseUrl() ?>/user/shop-products"><i class="fa fa-circle-o"></i> Products </a></li>
+              <li class="active"><a href="<?php $this->baseUrl() ?>/product/shop-products"><i class="fa fa-circle-o"></i> Products </a></li>
             <?php endif ?>
 
           </ul>

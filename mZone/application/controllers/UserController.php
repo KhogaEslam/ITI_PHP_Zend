@@ -2,7 +2,9 @@
 
 class UserController extends Zend_Controller_Action
 {
-    public $fpS;
+
+    public $fpS = null;
+
     public function init()
     {
         /* Initialize action controller here */
@@ -10,38 +12,32 @@ class UserController extends Zend_Controller_Action
         $fbsession = new Zend_Session_Namespace('facebook');
         $this->fpS = new Zend_Session_Namespace('facebook');
 
-        $request=$this->getRequest();
-        $actionName=$request->getActionName();
+        $request = $this->getRequest();
+        $actionName = $request->getActionName();
 
-         if ((!$authorization->hasIdentity()
-         && !isset($fbsession->email)
-         && !isset($_SESSION['access_token']))
-         && ($actionName != 'login'
-         && $actionName != 'fblogin'
-         && $actionName != 'fbcallback'
-         && $actionName != 'gplogin'
-         && $actionName != 'add'
-         && $actionName != 'gpcallback'))
-         {
-             $this->redirect('/user/login');
-         }
+        if ((!$authorization->hasIdentity()
+                && !isset($fbsession->email)
+                && !isset($_SESSION['access_token']))
+            && ($actionName != 'login'
+                && $actionName != 'fblogin'
+                && $actionName != 'fbcallback'
+                && $actionName != 'gplogin'
+                && $actionName != 'add'
+                && $actionName != 'authoriseuser'
+                && $actionName != 'gpcallback')
+        ) {
+            $this->redirect('/');
+        }
 
-
-         if (($authorization->hasIdentity()
-         || isset($fbsession->email)
-         || isset($_SESSION['access_token']))
-         && ($actionName == 'login'
-         || $actionName == 'fblogin'
-         || $actionName == 'gplogin'))
-         {
-           $this->redirect('/user');
-         }
-    }
-
-    public function indexAction()
-    {
-        // action body
-
+        if (($authorization->hasIdentity()
+                || isset($fbsession->email)
+                || isset($_SESSION['access_token']))
+            && ($actionName == 'login'
+                || $actionName == 'fblogin'
+                || $actionName == 'gplogin')
+        ) {
+            $this->redirect('/dashboard');
+        }
     }
 
     public function listAllAction()
@@ -56,110 +52,71 @@ class UserController extends Zend_Controller_Action
     {
         // just for test login
         $form = new Application_Form_Search();
-        $this->view->search_form=$form;
+        $this->view->search_form = $form;
+        $category_model = new Application_Model_Category();
+        $all = $category_model->listCategory();
+        $this->view->category = $all;
+        $request = $this->getRequest();
+        if ($request->ispost()) {
 
-    $category_model = new Application_Model_Category();
-   $all=$category_model->listCategory();
-    $this->view->category=$all;
-
-
-    $request=$this->getRequest();
-        if($request->ispost())
-        {
-
-            if($form->isValid($request->getParams()))
-            {
-
-        $product_model=new Application_Model_Product();
-       
-        $search=$product_model->searchByPname($request->getParam('search'));
-        $this->view->searchproduct=$search;
-
-               // echo $request->getParam('search');
-            
-
-    
-        
+            if ($form->isValid($request->getParams())) {
+                $product_model = new Application_Model_Product();
+                $search = $product_model->searchByPname($request->getParam('search'));
+                $this->view->searchproduct = $search;
+                // echo $request->getParam('search');
             }
         }
-
-
-
-     
-    
-        
     }
-    //----------------------------
 
-public function showAction()
-
+    public function showAction()
     {
-
-
-     }
-
-//----------------------------------
+    }
 
     public function catproductAction()
     {
-
-
-        $product_model=new Application_Model_Product();
-         $cat_id = $this->_request->getParam("cid");
-        
-        
-        $all=$product_model->displayallproduct($cat_id);
-        $this->view->catproduct=$all;
-        
+        $product_model = new Application_Model_Product();
+        $cat_id = $this->_request->getParam("cid");
+        $all = $product_model->displayallproduct($cat_id);
+        $this->view->catproduct = $all;
     }
 
-
-
-    //---------------------------------------------------
-    // sign up operation
     public function addAction()
     {
-        $form=new Application_Form_SignUp();
+        $form = new Application_Form_SignUp();
         $email = $this->_request->getParam('email');
         $msg = $this->_request->getParam('msg');
-        $msg = "<strong>".$msg."</strong><hr>";
+        $msg = "<strong>" . $msg . "</strong><hr>";
         $data['email'] = $email;
         $data['msg'] = $msg;
         $form->populate($data);
 
-        $this->view->signup_form=$form;
-        $request=$this->getRequest();
-        if($request->ispost())
-        {
+        $this->view->signup_form = $form;
+        $request = $this->getRequest();
+        if ($request->ispost()) {
 
-            if($form->isValid($request->getParams()))
-            {
+            if ($form->isValid($request->getParams())) {
                 $user_model = new Application_Model_User();
                 $user_model->Register($request->getParams());
                 $this->redirect('/');
             }
         }
+        $this->_helper->_layout->setLayout('home');
     }
 
-    // user login
     public function loginAction()
     {
-        //$auth=Zend_Auth::getInstance();
-        //$storage=$auth->getStorage();
-        //$userdata=$storage->read();
-        $loginform=new Application_Form_Login();
+        $loginform = new Application_Form_Login();
         $this->view->login_form = $loginform;
 
-        $request = $this->getRequest ();
+        $request = $this->getRequest();
 
-        if($request-> isPost()){
+        if ($request->isPost()) {
 
-            if($loginform-> isValid($request-> getPost()))
-            {
-                $email=$request->getParam('email');
-                $password=$request->getParam('password');
+            if ($loginform->isValid($request->getPost())) {
+                $email = $request->getParam('email');
+                $password = $request->getParam('password');
 
-                $this->authUserAction($email,$password, 2);
+                $this->authUserAction($email, $password, 2);
 
             } // if form is vaild & requset is post
 
@@ -168,18 +125,14 @@ public function showAction()
         $this->_helper->_layout->setLayout('home');
     }
 
-    //-----------------------------------------------
-
     public function logoutAction()
     {
-        $auth=Zend_Auth::getInstance();
+        $auth = Zend_Auth::getInstance();
         $auth->clearIdentity();
         Zend_Session::namespaceUnset('facebook');
         session_destroy();
-        return $this->redirect('/user/login');
+        $this->redirect('/');
     }
-
-    //---------------------------------------------
 
     public function fbloginAction()
     {
@@ -190,11 +143,10 @@ public function showAction()
         ]);
         $helper = $fb->getRedirectLoginHelper();
         $permissions = ['email']; // optional
-        $loginUrl = $helper->getLoginUrl($this->view->serverUrl().'/user/fbcallback', $permissions);
+        $loginUrl = $helper->getLoginUrl($this->view->serverUrl() . '/user/fbcallback', $permissions);
         $this->view->facebook_url = $loginUrl;
     }
 
-    //--------------------------------------------------------
     public function fbcallbackAction()
     {
         $fb = new Facebook\Facebook([
@@ -207,18 +159,17 @@ public function showAction()
 
         try {
             $accessToken = $helper->getAccessToken();
-        }
-        catch(Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             exit;
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             exit;
         }
 
-        if (! isset($accessToken)) {
+        if (!isset($accessToken)) {
             if ($helper->getError()) {
                 header('HTTP/1.0 401 Unauthorized');
                 echo "Error: " . $helper->getError() . "\n";
@@ -234,7 +185,7 @@ public function showAction()
         // The OAuth 2.0 client handler helps us manage access tokens
         $oAuth2Client = $fb->getOAuth2Client();
 
-        if (! $accessToken->isLongLived()) {
+        if (!$accessToken->isLongLived()) {
             // Exchanges a short-lived access token for a long-lived one
             try {
                 $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
@@ -246,16 +197,14 @@ public function showAction()
         }
         $fb->setDefaultAccessToken($accessToken);
         try {
-            $response = $fb->get('/me?fields=email',$accessToken);
+            $response = $fb->get('/me?fields=email', $accessToken);
 
             $userNode = $response->getGraphUser();
-        }
-        catch (Facebook\Exceptions\FacebookResponseException $e) {
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
             // When Graph returns an error
             echo 'Graph returned an error: ' . $e->getMessage();
             Exit;
-        }
-        catch (Facebook\Exceptions\FacebookSDKException $e) {
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
             // When validation fails or other local issues
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             Exit;
@@ -264,32 +213,30 @@ public function showAction()
         // $user_model->InsertFB($userNode->all());
         $email = $userNode['email'];
         $row = $user_model->fetchRow($user_model->select()->where('email like ?', $email));
-        if($row)
+        if ($row) {
             $password = $row['password'];
-            $this->authUserAction($email,$password);
-        else{
-            $this->redirect('/user/add/email/'.$email.'/msg/You need to register');
+            $this->authUserAction($email, $password);
+        } else {
+            $this->redirect('/user/add/email/' . $email . '/msg/You need to register');
         }
     }
 
     public function createAction()
     {
         // action body
-        $form=new Application_Form_SignUp();
+        $form = new Application_Form_SignUp();
         $email = $this->_request->getParam('email');
         $msg = $this->_request->getParam('msg');
-        $msg = "<strong>".$msg."</strong><hr>";
+        $msg = "<strong>" . $msg . "</strong><hr>";
         $data['email'] = $email;
         $data['msg'] = $msg;
         $form->populate($data);
 
-        $this->view->signup_form=$form;
-        $request=$this->getRequest();
-        if($request->ispost())
-        {
+        $this->view->signup_form = $form;
+        $request = $this->getRequest();
+        if ($request->ispost()) {
 
-            if($form->isValid($request->getParams()))
-            {
+            if ($form->isValid($request->getParams())) {
                 $user_model = new Application_Model_User();
                 $user_model->Register($request->getParams());
                 $this->redirect('/User/list-All');
@@ -370,62 +317,52 @@ public function showAction()
     {
         // action body
         //we get object of ZendDbAdapter to know which database we connect on
-        $db=zend_Db_Table::getDefaultAdapter();
+        $db = zend_Db_Table::getDefaultAdapter();
         $identity = "email";
+        if ($type != 1) {
+            $dbm = new Application_Model_User();
+            $user = $dbm->fetchRow($dbm->select()->where('username like ?', $email));
 
-        if($type != 1){
-          $dbm = new Application_Model_User();
-          $user = $dbm->fetchRow($dbm->select()->where('username like ?', $email));
-
-          if($user['username']){
-            $identity = "username";
-          }
+            if ($user['username']) {
+                $identity = "username";
+            }
         }
-        $adapter = new Zend_Auth_Adapter_DbTable($db,'user', $identity,'password');
+        $adapter = new Zend_Auth_Adapter_DbTable($db, 'user', $identity, 'password');
         $adapter->setIdentity($email);
 
         $adapter->setCredential($password);
 
         //execute qyery
-        $result=$adapter->authenticate();
-        if($result->isValid())
-        {
+        $result = $adapter->authenticate();
+        if ($result->isValid()) {
             //print_r('authentiacte');
             //session steps
-            $sessionDataObj=$adapter->getResultRowObject(['id','email','name','name_ar','username','isBlocked','type']);
+            $sessionDataObj = $adapter->getResultRowObject(['id', 'email', 'name', 'name_ar', 'username', 'isBlocked', 'type']);
 
-            if($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 1 )
-            {
-                $auth=Zend_Auth::getInstance();
-                $storage=$auth->getStorage();
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 1) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
                 $storage->write($sessionDataObj);
                 $this->redirect('/dashboard');
             }
 
-            if($sessionDataObj->isBlocked == 0 &&$sessionDataObj->type == 2 )
-            {
-                $auth=Zend_Auth::getInstance();
-                $storage=$auth->getStorage();
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 2) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
                 $storage->write($sessionDataObj);
                 $this->redirect('/dashboard');
             }
 
-            if($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 3 )
-            {
-                $auth=Zend_Auth::getInstance();
-                $storage=$auth->getStorage();
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 3) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
                 $storage->write($sessionDataObj);
                 $this->redirect('/user');
+            } else {
+                $this->redirect('/user/add/email/' . $email . '/msg/You are blocked, contact Admin');
             }
-            else
-            {
-                $this->redirect('/user/add/email/'.$email.'/msg/You are blocked, contact Admin');
-            }
-        }
-
-        else
-        {
-            $this->redirect('/user/add/email/'.$email.'/msg/User Not Found, Create New Account');
+        } else {
+            $this->redirect('/user/add/email/' . $email . '/msg/User Not Found, Create New Account');
         }
     }
 
@@ -461,7 +398,7 @@ public function showAction()
         $client->addScope('email');
         $service = new Google_Service_Oauth2($client);
 
-        if (! isset($_GET['code'])) {
+        if (!isset($_GET['code'])) {
             $auth_url = $client->createAuthUrl();
             header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
         } else {
@@ -472,14 +409,73 @@ public function showAction()
             $email = $userNode->email;
             $row = $user_model->fetchRow($user_model->select()->where('email like ?', $email));
             $password = $row['password'];
-            if($row){
+            if ($row) {
                 $_SESSION['access_token'] = $client->getAccessToken();
-                $this->authUserAction($email,$password);
-            }
-            else{
-                $this->redirect('/user/add/email/'.$email.'/msg/You need to register');
+                $this->authUserAction($email, $password);
+            } else {
+                $this->redirect('/user/add/email/' . $email . '/msg/You need to register');
             }
         }
     }
 
+    public function authoriseuserAction($email, $password, $type = 1)
+    {
+        // action body
+        //we get object of ZendDbAdapter to know which database we connect on
+        $db = zend_Db_Table::getDefaultAdapter();
+        $identity = "email";
+
+        if ($type != 1) {
+            $dbm = new Application_Model_User();
+            $user = $dbm->fetchRow($dbm->select()->where('username like ?', $email));
+
+            if ($user['username']) {
+                $identity = "username";
+            }
+        }
+        $adapter = new Zend_Auth_Adapter_DbTable($db, 'user', $identity, 'password');
+        $adapter->setIdentity($email);
+
+        $adapter->setCredential($password);
+
+        //execute qyery
+        $result = $adapter->authenticate();
+        if ($result->isValid()) {
+            //print_r('authentiacte');
+            //session steps
+            $sessionDataObj = $adapter->getResultRowObject(['id', 'email', 'name', 'name_ar', 'username', 'isBlocked', 'type']);
+
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 1) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/dashboard');
+            }
+
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 2) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/dashboard');
+            }
+
+            if ($sessionDataObj->isBlocked == 0 && $sessionDataObj->type == 3) {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $storage->write($sessionDataObj);
+                $this->redirect('/');
+            }
+            if($sessionDataObj->isBlocked == 1){
+                $this->redirect('/user/add/email/' . $email . '/msg/You are blocked, contact Admin');
+            }
+            else{
+                $this->redirect('/user/add/email/' . $email . '/msg/Problem in login, contact Admin');
+            }
+        } else {
+            $this->redirect('/user/add/email/' . $email . '/msg/User Not Found, Create New Account');
+        }
+    }
+
+
 }
+

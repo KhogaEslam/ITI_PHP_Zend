@@ -82,8 +82,8 @@ class Application_Form_Productform extends Zend_Form
                 ->addFilter('Rename', implode('product_',
                                   array($this->_user_id,
                                     $this->_upload_category,
-                                    date('YmdHis'))))
-                ->addValidator('NotExists', false, $uploadDir);
+                                    date('YmdHis'))));
+                //->addValidator('NotExists', false, $uploadDir);
 
                 $cat_id = new Zend_Form_Element_Select('cat_id');
                 $cat_id->setLabel('Category: ');

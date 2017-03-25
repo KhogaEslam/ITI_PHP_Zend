@@ -7,7 +7,7 @@ class Application_Form_Categoryform extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
         $this->setMethod('POST');
-        $cname = new Zend_Form_Element_Text('name');
+        $name = new Zend_Form_Element_Text('name');
         $name->setLabel('Category Name: ');
         $name->setAttribs(Array(
             'placeholder'=>'Example: Tech',
@@ -65,8 +65,11 @@ class Application_Form_Categoryform extends Zend_Form
                 ->addValidator('Count', false, 1) // ensure only 1 file
                 ->addValidator('Size', false, 2097152) // limit to 2MB
                 ->addValidator('Extension', false, 'jpeg,png,jpg')
-               
-                ->addValidator('NotExists', false, $uploadDir);
+                ->addFilter('Rename', implode('product_',
+                    array($this->_user_id,
+                        $this->_upload_category,
+                        date('YmdHis'))));
+                //->addValidator('NotExists', false, $uploadDir);
 
 
         $submit= new Zend_Form_Element_Submit('save');

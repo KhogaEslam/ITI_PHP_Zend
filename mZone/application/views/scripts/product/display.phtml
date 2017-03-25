@@ -1,13 +1,4 @@
-<?php
-    require_once("./admin/dashboard.php");
-?>
 <div class="container">
-	<div class="panel panel-primary">
-		<a class= 'btn btn-default btn-lg active' href='create'>Add new product </a>
-	 	<a class='btn btn-default btn-lg active' href='getTopProducts'>top product</a>
-	 	<a class='btn btn-default btn-lg active' href='statistics'>statistics</a>
-
-
 	 	
 <table class="table table-bordered">
 
@@ -33,10 +24,6 @@ echo "<td>"; ?>
 		"</tr>";
 		echo "<tr>".
 		"<td >" . "Rate:" . $value['rate']. "</td>" .
-		"<td> <a class='btn btn-default btn-lg active' href='details/pid/".$value['id']."'> Details </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='delete/pid/".$value['id']."'> Delete </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='update/pid/".$value['id']."'>update </a></td>".
-		"<td > <a class= 'btn btn-default btn-lg active' href='create'>Create</a></td>".
 		"</tr>";
 }
 ?>

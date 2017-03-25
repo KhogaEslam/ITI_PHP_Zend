@@ -8,10 +8,10 @@ class CommentController extends Zend_Controller_Action
         /* Initialize action controller here */
     }
 
-    public function indexAction()
-    {
-        // action body
-    }
+//    public function indexAction()
+//    {
+//        // action body
+//    }
 
     public function updateAction()
     {
@@ -43,11 +43,6 @@ class CommentController extends Zend_Controller_Action
         $id = $this->_request->getParam("cid");
         $review_model->deleteData($id);
         $this->redirect('/Product/retrieve/'.$pid);
-    }
-
-    public function retrieveAction()
-    {
-        // action body
     }
 
     public function createAction()

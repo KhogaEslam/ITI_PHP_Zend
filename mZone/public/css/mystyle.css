@@ -5094,4 +5094,8 @@ td.invert-image a img {
     margin: 5px auto 6px;
 }
 }
+.panel-primary > .panel-heading{
+    background-color: #FDA30E;
+    border-color: #FDA30E;
+}
 /*-- //responsive media queries --*/

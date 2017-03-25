@@ -16,8 +16,6 @@ class Application_Model_Review extends Zend_Db_Table_Abstract
         $row->product_id = (int)$data['product_id'];
         $row->comment = $data['comment'];
         $row->date = new Zend_Db_Expr('NOW()');
-        //var_dump($row);
-        //die;
         $row->save();
     }
 

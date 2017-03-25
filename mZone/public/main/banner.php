@@ -12,6 +12,9 @@
 
 				<!-- Slide Description Image Area (316 x 328) -->
 				<div class="script-wrap">
+
+                        <p>Tesssssssst</p>
+
 					<ul class="script-group">
 						<li><div class="inner-script"><img class="img-responsive" src="<?php $this->baseUrl() ?>/images/baa1.jpg" alt="Dummy Image" /></div></li>
 						<li><div class="inner-script"><img class="img-responsive" src="<?php $this->baseUrl() ?>/images/baa2.jpg" alt="Dummy Image" /></div></li>

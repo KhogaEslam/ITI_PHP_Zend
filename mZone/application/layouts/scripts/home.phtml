@@ -1,18 +1,209 @@
 <?php
     require_once "./main/header.php";
-    require_once "./main/header-bot.php";
+?>
+
+
+
+
+
+
+<!-- header-bot -->
+<div class="header-bot">
+    <div class="container">
+        <div class="col-md-3 header-left">
+            <h1><a href="index.html"><img src="<?php $this->baseUrl() ?>/images/logo3.jpg"></a></h1>
+        </div>
+        <div class="col-md-6 header-middle">
+            <form>
+                <div class="search">
+                    <input id="search_input" type="search" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}" required="">
+                </div>
+                <div class="section_room">
+                    <select id="country" onchange="change_country(this.value)" class="frm-field required">
+                        <?php
+                        $modelObj = new Application_Model_Category();
+                        $categories = $modelObj->getParentCategories();
+                        ?>
+                        <option value="1">All categories</option>
+                        <?php foreach ($categories as $key => $value): ?>
+                            <option value="<?php $value['id']?>"><?="_".$value['name']?></option>
+                            <?php $child_cats = $modelObj->getChildCategories($value['id']); ?>
+                            <?php foreach ($child_cats as $keyc => $valuec): ?>
+                                <option value="<?php $valuec['id']?>"><?="__".$valuec['name']?></option>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="sear-sub">
+                    <input id ="search_btn" type="submit" value=" ">
+                </div>
+                <div id="searchResult"></div>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+        <div class="col-md-3 header-right footer-bottom">
+            <ul>
+                <?php
+                $authorization = Zend_Auth::getInstance();
+                $storage=$authorization->getStorage();
+                $userdata=$storage->read();
+                ?>
+
+                <?php if (!$authorization->hasIdentity()): ?>
+                    <li><a href="<?php $this->baseUrl() ?>/user/login#" class="use1" data-toggle="modal" data-target="#myModal4"><span>Login</span></a></li>
+                <?php elseif($userdata->type == 3): ?>
+                    <li><a href="<?php $this->baseUrl() ?>/user/logout" class="use1" ><span>Logout</span></a></li>
+                <?php elseif($userdata->type == 1 || $userdata->type == 2): ?>
+                    <li><a href="<?php $this->baseUrl() ?>/dashboard" class="use1" ><span>Dashboard</span></a></li>
+                <?php endif; ?>
+                <li><a class="fb" href="#"></a></li>
+                <li><a class="twi" href="#"></a></li>
+                <li><a class="insta" href="#"></a></li>
+                <li><a class="you" href="#"></a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- //header-bot -->
+
+<!-- <input id='search_input' class='form-control' placeholder='search bar'> </input>
+<div id='searchResult' style="width:100px; height:100px;"></div>
+<button   id='search_btn'type='submit'> search </button> -->
+<script>
+    $('input#search_btn').on('click', function(){
+        var search = $('input#search_input').val();
+        if($.trim(search) != "") {
+//        alert(search);
+            $.post('/product/search', {name: search}, function(data){
+                var parseData=JSON.parse(data);
+                var htmlStr = "\\n\
+              <div class='col-sm-4 col-md-4'>\
+                   <div class='thumbnail'>\
+                      <img src=" + parseData[0].image + " class='img-circle'>\
+                       <div class='caption'>\
+                           <h3>" + parseData[0].name + "</h3>\
+                           <p><center><a href='#' class='btn btn-primary'\\n\
+                            role='button'>View Category Products</a></center></p>\
+                       </div>\
+                   </div>\
+               </div>"
+                $('div#searchResult').html(htmlStr);
+            });
+        }
+
+    });
+
+</script>
+
+
+
+
+
+
+
+<?php
+
     require_once "./main/banner-top.php";
-    // require_once "./main/banner.php";
-    // /////////////////////////////////////
-    // require_once "./main/content-bottom.php";
-    // require_once "./main/product-nav.php";
-    // require_once "./main/content.php";
     /////////////////////////////////////
     echo $this->layout()->content;
     /////////////////////////////////////
-    //require_once "./main/coupons.php";
-    //require_once "./main/footer.php";
-    require_once "./main/login.php";
+    require_once "./main/coupons.php";
+    require_once "./main/footer.php";
+    //require_once "./main/login.php";
+
+    //echo $this->searchForm($this->searchForm);
 ?>
+
+<!-- login -->
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body modal-spa">
+                <div class="login-grids">
+                    <div class="login">
+                        <div class="login-bottom">
+                            <h3>Sign up</h3>
+                            <?php echo $this->signupForm($this->signupForm);?>
+                            <!-- <form>
+                                <div class="sign-up">
+                                    <h4>Email :</h4>
+                                    <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Password :</h4>
+                                    <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                </div>
+                                <div class="sign-up">
+                                    <h4>Re-type Password :</h4>
+                                    <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                </div>
+                                <div class="sign-up">
+                                    <input type="submit" value="REGISTER NOW" >
+                                </div>
+
+                            </form>-->
+                            <div class="sign-up" style="width: 50%">
+                                <a class="btn btn-info" href="/user/add">SignUp</a>
+                            </div>
+                            <div class="sign-up">
+                                <a class="btn btn-primary" href="/user/fblogin">Facebook</a>
+                            </div>
+                            <div class="sign-up">
+                                <a class="btn btn-primary" href="/user/gplogin">Google</a>
+                            </div>
+                        </div>
+                        <div class="login-right">
+                            <h3>Sign in</h3>
+                            <div class="sign-in">
+                                <?php
+                                echo $this->loginForm($this->loginForm);
+                                // echo "<pre>";
+                                // var_dump($this->login_form);
+                                // echo "</pre>";
+                                ?>
+                            </div>
+                            <!--<form>
+                                <div class="sign-in">
+                                    <h4>Email :</h4>
+                                    <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                </div>
+                                <div class="sign-in">
+                                    <h4>Password :</h4>
+                                    <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <div class="single-bottom">
+                                    <input type="checkbox"  id="brand" value="">
+                                    <label for="brand"><span></span>Remember Me.</label>
+                                </div>
+                                <div class="sign-in">
+                                    <input type="submit" value="SIGNIN" >
+                                </div>
+                            </form>-->
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <p>By logging in you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //login -->
+
+
+
+
+
+
+
+
   </body>
 </html>
