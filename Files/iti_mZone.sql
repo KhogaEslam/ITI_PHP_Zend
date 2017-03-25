@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 23, 2017 at 07:54 PM
+-- Generation Time: Mar 26, 2017 at 12:55 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 7.0.15-0ubuntu0.16.04.4
 
@@ -39,9 +39,9 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `cdesc`, `parent`, `image`) VALUES
-(1, 'category', 'parent category', 1, ''),
-(2, 'mobi', 'mobile', 1, ''),
-(3, 'sport', 'sport ', 1, '');
+(1, 'category', 'parent category', 0, 'a8.png'),
+(2, 'mobi', 'mobile', 1, 'product_product_20170324181509'),
+(3, 'sport', 'sport', 2, 'product_product_20170325105954');
 
 -- --------------------------------------------------------
 
@@ -81,6 +81,14 @@ CREATE TABLE `history` (
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO `history` (`userid`, `pro_id`, `quantity`, `price`, `date`) VALUES
+(1, 1, 12, 555, '2017-03-24 17:24:16'),
+(2, 3, 12, 5555, '2017-03-24 17:24:34');
+
 -- --------------------------------------------------------
 
 --
@@ -88,7 +96,6 @@ CREATE TABLE `history` (
 --
 
 CREATE TABLE `offer` (
-  `id` int(11) NOT NULL,
   `pro_id` int(11) NOT NULL,
   `start_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `end_date` datetime NOT NULL,
@@ -99,11 +106,9 @@ CREATE TABLE `offer` (
 -- Dumping data for table `offer`
 --
 
-INSERT INTO `offer` (`id`, `pro_id`, `start_date`, `end_date`, `percentage`) VALUES
-(1, 1, '2017-03-10 00:00:00', '2017-03-11 00:00:00', 11),
-(2, 1, '2017-03-10 00:00:00', '2017-03-11 00:00:00', 50),
-(3, 1, '2017-03-03 00:00:00', '2017-03-18 00:00:00', 11),
-(4, 1, '2017-03-31 00:00:00', '2017-03-31 00:00:00', 55);
+INSERT INTO `offer` (`pro_id`, `start_date`, `end_date`, `percentage`) VALUES
+(1, '2017-03-31 00:00:00', '2017-03-31 00:00:00', 55),
+(4, '2017-03-31 00:00:00', '2017-03-31 00:00:00', 88);
 
 -- --------------------------------------------------------
 
@@ -129,9 +134,10 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `name_ar`, `price`, `rate`, `image`, `pdesc`, `pdesc_ar`, `cat_id`, `shop_user_id`) VALUES
-(1, 'p1', 'م1', 50, 3, 'img1.png', 'p1 is p1', 'م1 هو م1', 1, 1),
-(2, 'p2', 'م2', 70, 2, 'img', 'desc2', 'وصف1', 1, 1),
-(3, 'cd', 'سى دى ', 2, 0, '', 'cd ', 'سى دى ', 2, 2);
+(1, 'p1', 'م1', 50, 3, 'product_product_20170324175356', 'p1 is p1', 'م1 هو م1', 2, 1),
+(2, 'p2', 'م2', 70, 1, 'product_product_20170324175432', 'desc2', 'وصف1', 3, 1),
+(3, 'cd', 'سى دى', 2, 5, 'product_product_20170324175517', 'cd', 'سى دى', 2, 1),
+(4, 'sfdfsdfds', 'يسبسيبسي', 500, 1, 'product_product_20170325162445', 'sdffdsdfdsdfsdfs', 'سيببييبسيبسيبيبسيبسيبس', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -152,13 +158,15 @@ CREATE TABLE `rate` (
 INSERT INTO `rate` (`pro_id`, `user_id`, `rate`) VALUES
 (1, 1, 1),
 (1, 2, 5),
-(1, 3, 3),
-(1, 4, 4),
-(1, 6, 3),
+(1, 3, 4),
+(1, 4, 3),
+(1, 6, 2),
 (2, 4, 1),
 (2, 6, 1),
-(2, 7, 4),
-(2, 8, 3);
+(2, 7, 1),
+(2, 8, 1),
+(3, 1, 5),
+(4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -179,12 +187,14 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`id`, `user_id`, `product_id`, `comment`, `date`) VALUES
-(1, 1, 1, 'my comment', '2017-03-31 03:24:21'),
+(1, 3, 1, 'my comment', '2017-03-31 03:24:21'),
 (2, 1, 1, 'dfdfdfdfdfdfdfdf', '2017-03-17 09:41:02'),
 (5, 1, 0, 'second', '2017-03-17 09:52:57'),
 (6, 1, 0, 'second', '2017-03-17 09:53:18'),
 (7, 1, 1, 'helooooooooooooooooo', '2017-03-18 16:48:18'),
-(8, 1, 1, 'frercwr w er er wrwer er', '2017-03-18 21:21:34');
+(8, 2, 1, 'frercwr w er er wrwer er', '2017-03-18 21:21:34'),
+(9, 4, 1, 'ewrererewrewrwerewr ewr er erw re er \r\nerewrewrwer', '2017-03-25 18:11:51'),
+(10, 1, 1, '', '2017-03-26 00:51:29');
 
 -- --------------------------------------------------------
 
@@ -232,14 +242,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `name_ar`, `username`, `email`, `password`, `type`, `isBlocked`) VALUES
-(1, 'admin', 'أدمن', 'admin', 'admin@mZone.com', '123456', 1, 1),
-(2, 'eslam', 'إسلام', 'eslam', 'khoga.eslam@gmail.com', 'eslam12345', 3, 0),
-(3, 'esraa', 'اسراء', 'sara', 'esraa@yahoo.com', '12345678', 2, 0),
-(4, 'aya', 'ايه', 'yoyo', 'aya@yaho.com', '12345678', 3, 0),
+(1, 'admin', 'أدمن', 'admin', 'admin@mZone.com', '123456', 1, 0),
+(2, 'eslam', 'إسلام', 'eslam', 'khoga.eslam@gmail.com', 'eslam12345', 1, 0),
+(3, 'esraa', 'اسراء', 'sara', 'esraa@yahoo.com', '12345678', 1, 0),
+(4, 'aya', 'ايه', 'yoyo', 'aya@yaho.com', '12345678', 2, 0),
 (5, 'bassant', 'بسنت', 'bose', 'bose@yahoo.com', '12345678', 3, 0),
 (6, 'merna', 'ميرنا', 'mero', 'merna@yahoo.com', '123', 3, 0),
-(7, 'a', 'ا', 'a', 'a@yahoo.com', 'a', 3, 0),
-(8, 'b', 'ب', 'b', 'b@yahoo.com', 'b', 3, 0);
+(7, 'a', 'ا', 'a', 'a@yahoo.com', 'a', 2, 0),
+(8, 'b', 'ب', 'b', 'b@yahoo.com', 'b', 3, 1),
+(9, 'Eslam', 'Eslam Gama', 'Eslammmm', 'admin@aaaaa.co', 'Eslammmmmmmmmmm', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -251,6 +262,13 @@ CREATE TABLE `wishlist` (
   `userid` int(11) NOT NULL,
   `productid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`userid`, `productid`) VALUES
+(4, 4);
 
 --
 -- Indexes for dumped tables
@@ -278,7 +296,7 @@ ALTER TABLE `history`
 -- Indexes for table `offer`
 --
 ALTER TABLE `offer`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`pro_id`);
 
 --
 -- Indexes for table `product`
@@ -302,7 +320,7 @@ ALTER TABLE `review`
 -- Indexes for table `shoppingcart`
 --
 ALTER TABLE `shoppingcart`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`,`product_id`,`user_id`),
   ADD KEY `product_id` (`product_id`),
   ADD KEY `user_id` (`user_id`);
 
@@ -335,20 +353,15 @@ ALTER TABLE `category`
 ALTER TABLE `discount`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `offer`
---
-ALTER TABLE `offer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `shoppingcart`
 --
@@ -358,7 +371,7 @@ ALTER TABLE `shoppingcart`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
