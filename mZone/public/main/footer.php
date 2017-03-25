@@ -3,7 +3,7 @@
 <div class="footer">
 	<div class="container">
 		<div class="col-md-3 footer-left">
-			<h2><a href="index.html"><img src="<?php $this->baseUrl() ?>/images/logo3.jpg" alt=" " /></a></h2>
+			<h2><a href="<?php $this->baseUrl() ?>"><img src="<?php $this->baseUrl() ?>/images/logo3.jpg" width="200px" alt=" " /></a></h2>
 			<p>Neque porro quisquam est, qui dolorem ipsum quia dolor
 			sit amet, consectetur, adipisci velit, sed quia non
 			numquam eius modi tempora incidunt ut labore

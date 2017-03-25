@@ -3,7 +3,7 @@
 <div class="header-bot">
 	<div class="container">
 		<div class="col-md-3 header-left">
-			<h1><a href="index.html"><img src="<?php $this->baseUrl() ?>/images/logo3.jpg"></a></h1>
+			<h1><a href="<?php $this->baseUrl() ?>">m<span>Z</span>one</a></h1>
 		</div>
 		<div class="col-md-6 header-middle">
 			<form>
